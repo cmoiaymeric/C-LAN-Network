@@ -18,7 +18,10 @@ typedef struct Switch
   Mac tableCommutation[];
 } Switch;
 
-
+typedef union Machine {
+  Station station;
+  Switch bridge;
+} Machine;
 
 
 
