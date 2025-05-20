@@ -7,6 +7,7 @@
 typedef struct Station {
   Mac addrMac;
   IP addrIp;
+  Mac voisin;
 } Station;
 
 typedef struct Switch
