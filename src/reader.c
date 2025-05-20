@@ -4,7 +4,7 @@
 
 #define MAX_LENGTH 256
 
-void reader(char* fileName, char* fileString) {
+void readFile(char* fileName, char* fileString) {
 
     FILE* inputFile = fopen(fileName, "r");
 
@@ -21,8 +21,9 @@ void reader(char* fileName, char* fileString) {
             fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
             break;
         }
-        sprintf(fileString,"%s", fileString);
+        printf("%s", fileString);
     }
     fclose(inputFile);
     free(fileString);
+    exit(0);
 }
