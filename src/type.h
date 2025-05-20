@@ -10,13 +10,13 @@ typedef size_t sommet;
 typedef uint8_t Mac[6];
 typedef size_t IP[4];
 
-typedef struct {
+typedef struct commutation {
     int16_t port;
     Mac destination;
 } commutation;
 
 
-typedef struct {
+typedef struct equipement {
     Mac addrMac;
     IP addrIP;
     uint16_t nbPort;
@@ -25,11 +25,11 @@ typedef struct {
     uint8_t type;
 }equipement;
 
-typedef enum {
+typedef enum typeTrame{
     ICMP,BPDU,ARP,IPv4,IPv6,DHCP
 }typeTrame;
 
-typedef struct {
+typedef struct trame{
     Mac addrDestination;
     Mac addrSource;
     typeTrame type;
