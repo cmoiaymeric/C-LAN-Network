@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
   }
   char* file = argv[0];
   char* fileString = "";
-  reader(file, fileString);
+  readFile(file, fileString);
 
   printf("%s", fileString);
 }

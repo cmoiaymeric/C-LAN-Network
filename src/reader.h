@@ -2,4 +2,4 @@
 
 #include <stdint.h>
 
-void reader(char* fileName, char* fileString);
+void readFile(char* fileName, char* fileString);

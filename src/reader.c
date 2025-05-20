@@ -4,7 +4,7 @@
 
 #define MAX_LENGTH 256
 
-void reader(char* fileName, char* fileString) {
+void readFile(char* fileName, char* fileString) {
 
     FILE* inputFile = fopen(fileName, "r");
 
