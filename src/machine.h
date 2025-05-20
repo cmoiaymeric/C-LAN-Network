@@ -32,5 +32,7 @@ void initSwitch(Switch* bridge, Mac addrMac, IP addrIp);
 void deinitSwitch(Switch* bridge);
 void afficheSwitch(Switch* bridge);
 
+void ajouteVoisin(Machine* machine, Mac mac);
+
 
 #endif

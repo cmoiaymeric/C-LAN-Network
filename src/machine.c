@@ -6,3 +6,4 @@ void initStation(Station *station, Mac addrMac, IP addrIp) {
   //station->addrMac = addrMac;
   //station->addrIp = addrIp;
 }
+
