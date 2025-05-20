@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-
 #include "type.h"
 
 #ifndef MACHINE_H
@@ -22,6 +17,7 @@ typedef struct Switch
   size_t priorite;
   Mac tableCommutation[];
 } Switch;
+
 
 
 
