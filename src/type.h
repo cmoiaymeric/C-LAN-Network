@@ -20,4 +20,7 @@ typedef struct trame{
     typeTrame type;
 }trame;
 
+char * macToString(Mac const * mac, char * macChaine);
+char * ipToString(IP const * ip, char * ipChaine);
+
 #endif
