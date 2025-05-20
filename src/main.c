@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[]) {
     
-  argc--;   argv++;
+  argc--; argv++;
     
   if ( argc == 0 ) {
     printf( "Usage: entrez un nom de fichier\n" );
@@ -14,6 +14,6 @@ int main(int argc, char* argv[]) {
   char* file = argv[0];
   char* fileString = "";
   reader(file, fileString);
-  
+
   printf("%s", fileString);
 }
