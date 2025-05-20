@@ -6,7 +6,6 @@
 #ifndef TYPE_H
 #define TYPE_H
 
-typedef size_t sommet;
 typedef uint8_t Mac[6];
 typedef size_t IP[4];
 
