@@ -14,7 +14,7 @@ typedef struct Station {
   IP addrIp;
 } Station;
 
-typedef struct Sridge
+typedef struct Switch
 {
   Mac addrMac;
   IP addrIp;
