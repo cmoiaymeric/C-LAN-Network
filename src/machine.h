@@ -23,6 +23,13 @@ typedef union Machine {
   Switch bridge;
 } Machine;
 
+void initStation(Station* station, Mac addrMac, IP addrIp);
+void deinitStation(Station* station);
+void afficheStation(Station* station);
+
+void initSwitch(Switch* bridge, Mac addrMac, IP addrIp);
+void deinitSwitch(Switch* bridge);
+void afficheSwitch(Switch* bridge);
 
 
 #endif
