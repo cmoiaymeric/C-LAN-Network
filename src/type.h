@@ -7,7 +7,7 @@
 #define TYPE_H
 
 typedef size_t sommet;
-typedef uint8_t Mac[6];
+typedef unsigned char Mac[6];
 typedef size_t IP[4];
 
 typedef enum typeTrame{
@@ -20,7 +20,7 @@ typedef struct trame{
     typeTrame type;
 }trame;
 
-char * macToString(Mac const * mac, char * macChaine);
-char * ipToString(IP const * ip, char * ipChaine);
+char * macToString(Mac mac, char * macString);
+char * ipToString(IP ip, char * ipString);
 
 #endif

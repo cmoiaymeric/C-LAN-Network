@@ -1,4 +1,5 @@
 #include "reader.h"
+#include "reseau.h"
 
 #include <stdio.h>
 #include <stdlib.h>
