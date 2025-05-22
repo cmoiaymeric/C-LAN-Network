@@ -14,6 +14,9 @@ machine.o: machine.c machine.h
 main: reader.o type.o machine.o main.o
 	gcc -o main reader.o main.o -lm
 
+clean:
+	rm *.o
+	rm main
 
 cow:
 	cowsay "❤️ C for life ❤️"
