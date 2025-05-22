@@ -8,9 +8,12 @@ reader.o: reader.c reader.h
 machine.o: machine.c machine.h
 	gcc -c $(FLAGS) machine.c
 
-main: reader.o main.o
+main: main.o reader.o
 	gcc -o main reader.o main.o -lm
 
+clean:
+	rm *.o
+	rm main
 
 cow:
 	cowsay "❤️ C for life ❤️"
