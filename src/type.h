@@ -23,4 +23,7 @@ typedef struct trame{
 char * macToString(Mac mac, char * macString);
 char * ipToString(IP ip, char * ipString);
 
+Mac* macFromString(char * String, Mac* mac);
+IP* ipFromString(char * String, IP* ip);
+
 #endif
