@@ -6,9 +6,9 @@
 #ifndef TYPE_H
 #define TYPE_H
 
-
-typedef unsigned char Mac[6];
-typedef size_t IP[4];
+typedef uint8_t octet;
+typedef octet Mac[6];
+typedef octet IP[4];
 
 typedef enum typeTrame{
     ICMP,BPDU,ARP,IPv4,IPv6,DHCP
