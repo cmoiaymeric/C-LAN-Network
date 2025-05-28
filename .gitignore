@@ -1,6 +1,6 @@
 # On enlève les fichiers en .o
 *.o
+.vscode/
 
-# On enlève les fichiers de ressources
+# On enlève les fichiers de ressources sauf les .lan
 Ressources/
-!*.lan
