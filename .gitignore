@@ -1,0 +1,6 @@
+# On enlève les fichiers en .o
+*.o
+
+# On enlève les fichiers de ressources
+Ressources/
+!*.lan
