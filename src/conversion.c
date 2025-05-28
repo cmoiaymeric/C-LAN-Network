@@ -1,3 +1,4 @@
+#pragma once
 #include "conversion.h"
 
 int puissance(int base, int puissance)
