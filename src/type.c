@@ -13,15 +13,11 @@ char * macToString(Mac mac, char * macString) {
 char * ipToString(IP ip, char * ipString)
 {
     // Format IP : xxx.xxx.xxx.xxx
-    char *ptr = ipString;
 
     for (size_t i = 0; i < 4; i++) {
-        ptr += sprintf(ptr, "%zu", ip[i]);  
-        if (i < 3) {
-            *ptr++ = '.'; 
-        }
-    }
-    *ptr = '\0';
+    sprintf(ipString, "%hhu", ip[i]);
+    if (i < 3) sprintf(ipString, ".");
+    }  
     return ipString;
 }
 
