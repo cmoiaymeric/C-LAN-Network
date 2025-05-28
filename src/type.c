@@ -16,7 +16,7 @@ char * ipToString(IP ip, char * ipString)
     char *ptr = ipString;
 
     for (size_t i = 0; i < 4; i++) {
-        ptr += sprintf(ptr, "%zu", ip[i]);  
+        ptr += sprintf(ptr, "%u", ip[i]);  
         if (i < 3) {
             *ptr++ = '.'; 
         }
