@@ -28,5 +28,5 @@ Mac* macFromString(char * String, Mac* mac) {
 
 
 IP* ipFromString(char * String, IP* ip) {
- 
+ return ip;
 }
