@@ -6,9 +6,7 @@
 #include "reader.h"
 #include "machine.h"
 
-#define MAX_STR_LENGTH 256
-#define STR_MAC_LENGTH 18
-#define STR_IP_LENGTH 16
+#define MAX_STR_LENGTH 128
 
 // Fonction pour lire le fichier et afficher les informations
 void readFile(char* fileName, char* fileString) {
