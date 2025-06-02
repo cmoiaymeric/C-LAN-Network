@@ -11,12 +11,18 @@ typedef struct Station {
   Mac voisin;
 } Station;
 
+typedef struct {
+    int16_t port;
+    Mac destination;
+} commutation;
+
+
 typedef struct Switch
 {
   Mac addrMac;
   size_t nbPort;
   size_t priorite;
-  Mac tableCommutation[];
+  commutation* commutation;
 } Switch;
 
 typedef enum TypeMachine {
