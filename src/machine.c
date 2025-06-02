@@ -42,23 +42,24 @@ void deinitMachine(Machine *machine) {
 
 
 void afficheMachine(Machine *machine) {
-  if (machine->typemachine == TypeStation) {
-    
-    char* macString = malloc(sizeof(char)*17);
-    char* ipString = malloc(sizeof(char)*15);
-
+  char* macString = malloc(sizeof(char)*18);
+  char* ipString = malloc(sizeof(char)*16);
+  if (machine->typemachine == TypeStation) 
+  {
     printf("Type de machine : Station\t");
     printf("Adresse MAC : %s\t",macToString(((Station*)machine->machine)->addrMac, macString));
     printf("Adresse IP : %s\n",ipToString(((Station*)machine->machine)->addrIp, ipString));
   }
-  else if (machine->typemachine == TypeSwitch) {
-    char* macString = malloc(sizeof(char)*17);
-
+  else if (machine->typemachine == TypeSwitch) 
+  {
     printf("Type de machine : Switch\t");
     printf("Adresse MAC : %s\t",macToString(((Switch*)machine->machine)->addrMac, macString));
     printf("Priorité : %zu",((Switch*)machine->machine)->priorite);
   }
-  else {
+  else 
+  {
     printf("Erreur d'affichage");
   }
+  free(macString);
+  free(ipString);
 }

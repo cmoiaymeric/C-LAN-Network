@@ -20,8 +20,8 @@ typedef struct Switch
 } Switch;
 
 typedef enum TypeMachine {
-  TypeStation,
-  TypeSwitch,
+  TypeStation = 1,
+  TypeSwitch = 2,
 } TypeMachine;
 
 typedef union Machine {
