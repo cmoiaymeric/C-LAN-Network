@@ -31,13 +31,12 @@ void initSwitch(Machine *machine, Mac addrMac, size_t nbPorts, uint8_t priorite)
 
 void deinitMachine(Machine *machine) {
   if (machine->typemachine == TypeStation) {
-    free(((Station*)machine->machine)->addrMac);
-    ((Station*)machine->machine)->addrMac = NULL;
-    free(((Station*)machine->machine)->addrIp);
-    ((Station*)machine->machine)->addrIp = NULL;
+    free(((Station*)machine->machine));
+    machine->machine = NULL;
   }
   else if (machine->typemachine == TypeSwitch) {
-
+    free(((Switch*)machine->machine));
+    machine->machine = NULL;
   }
 }
 
