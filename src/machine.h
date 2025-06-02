@@ -15,14 +15,13 @@ typedef struct {
     int16_t port;
     Mac destination;
 } commutation;
-
-
+ 
 typedef struct Switch
 {
   Mac addrMac;
   size_t nbPort;
   size_t priorite;
-  commutation* commutation;
+  commutation* commutations;
 } Switch;
 
 typedef enum TypeMachine {
