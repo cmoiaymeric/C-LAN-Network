@@ -8,8 +8,13 @@
 #define TYPE_H
 
 typedef uint8_t octet;
-typedef octet Mac[6];
-typedef octet IP[4];
+
+typedef struct Mac {
+    octet octets[6];
+}Mac;
+typedef struct IP {
+    octet octets[4];
+}IP;
 
 typedef enum typeTrame{
     ICMP,BPDU,ARP,IPv4,IPv6,DHCP

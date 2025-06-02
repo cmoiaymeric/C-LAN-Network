@@ -9,10 +9,8 @@ void initStation(Machine* machine, Mac addrMac, IP addrIp) {
   machine->typemachine = TypeStation;
 
   Station* station = malloc(sizeof(Station));
-  for (int i=0; i<4; i++)
-    station->addrIp[i] = addrIp[i];
-  for (int i=0; i<6; i++)
-    station->addrMac[i] = addrMac[i];
+  station->addrIp = addrIp;
+  station->addrMac = addrMac;
 
   machine->machine = station;
 }
@@ -21,9 +19,7 @@ void initSwitch(Machine *machine, Mac addrMac, size_t nbPorts, uint8_t priorite)
   machine->typemachine = TypeSwitch;
 
   Switch* siwtch = malloc(sizeof(Switch));
-  for (int i=0; i<6; i++) {
-    siwtch->addrMac[i] = addrMac[i];
-  }
+  siwtch->addrMac = addrMac;
   siwtch->nbPort = nbPorts;
   siwtch->priorite = priorite;
   machine->machine = siwtch;

@@ -4,7 +4,7 @@
 
 char * macToString(Mac mac, char * macString) {
   for (size_t i = 0; i < 6; i++) {
-    sprintf(macString, "%02X", mac[i]);
+    sprintf(macString, "%02X", mac.octets[i]);
     if (i < 5) sprintf(macString,":");
   }
   return macString;
@@ -15,19 +15,19 @@ char * ipToString(IP ip, char * ipString)
     // Format IP : xxx.xxx.xxx.xxx
 
     for (size_t i = 0; i < 4; i++) {
-    sprintf(ipString, "%hhu", ip[i]);
+    sprintf(ipString, "%hhu", ip.octets[i]);
     if (i < 3) sprintf(ipString, ".");
     }  
     return ipString;
 }
 
 Mac* macFromString(char * String, Mac* mac) {
-  sscanf(String, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:", mac[0],mac[1],mac[2],mac[3],mac[4],mac[5]);
+  sscanf(String, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:", mac->octets[0],mac->octets[1],mac->octets[2],mac->octets[3],mac->octets[4],mac->octets[5]);
   return mac;
 }
 
 
 IP* ipFromString(char * String, IP* ip) {
-  sscanf(String, "%hhu.%hhu.%hhu.%hhu", ip[0], ip[1], ip[2], ip[3]);
+  sscanf(String, "%hhu.%hhu.%hhu.%hhu", ip->octets[0], ip->octets[1], ip->octets[2], ip->octets[3]);
   return ip;
 }
