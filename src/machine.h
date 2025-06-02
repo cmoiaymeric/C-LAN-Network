@@ -19,18 +19,23 @@ typedef struct Switch
   Mac tableCommutation[];
 } Switch;
 
+typedef enum TypeMachine {
+  TypeStation,
+  TypeSwitch,
+} TypeMachine;
+
 typedef union Machine {
-  Station station;
-  Switch bridge;
+  TypeMachine typemachine;
+  void* machine;
 } Machine;
 
-void initStation(Station* station, Mac addrMac, IP addrIp);
-void deinitStation(Station* station);
-void afficheStation(Station* station);
+void initStation(Machine* machine, Mac addrMac, IP addrIp);
+void deinitStation(Machine* machine);
+void afficheStation(Machine* machine);
 
-void initSwitch(Switch* bridge, Mac addrMac, IP addrIp);
-void deinitSwitch(Switch* bridge);
-void afficheSwitch(Switch* bridge);
+void initSwitch(Machine* machine, Mac addrMac, IP addrIp);
+void deinitSwitch(Machine* machine);
+void afficheSwitch(Machine* machine);
 
 void ajouteVoisin(Machine* machine, Mac mac);
 
