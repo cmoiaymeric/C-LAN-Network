@@ -54,8 +54,11 @@ void afficheMachine(Machine *machine) {
   else if (machine->typemachine == TypeSwitch) {
     char* macString = malloc(sizeof(char)*17);
 
-    printf("Type de machine : Station\t");
+    printf("Type de machine : Switch\t");
     printf("Adresse MAC : %s\t",macToString(((Switch*)machine->machine)->addrMac, macString));
     printf("Priorité : %zu",((Switch*)machine->machine)->priorite);
+  }
+  else {
+    printf("Erreur d'affichage");
   }
 }
