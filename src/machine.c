@@ -1,7 +1,9 @@
 #include "machine.h"
 #include "type.h"
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void initStation(Machine* machine, Mac addrMac, IP addrIp) {
   machine->typemachine = TypeStation;
@@ -15,14 +17,28 @@ void initStation(Machine* machine, Mac addrMac, IP addrIp) {
   machine->machine = station;
 }
 
-void initSwitch(Machine *machine, Mac addrMac, uint8_t priorite) {
+void initSwitch(Machine *machine, Mac addrMac, size_t nbPorts, uint8_t priorite) {
   machine->typemachine = TypeSwitch;
 
   Switch* siwtch = malloc(sizeof(Switch));
   for (int i=0; i<6; i++) {
     siwtch->addrMac[i] = addrMac[i];
   }
+  siwtch->nbPort = nbPorts;
+  siwtch->priorite = priorite;
   machine->machine = siwtch;
+}
+
+void deinitMachine(Machine *machine) {
+  if (machine->typemachine == TypeStation) {
+    free(((Station*)machine->machine)->addrMac);
+    ((Station*)machine->machine)->addrMac = NULL;
+    free(((Station*)machine->machine)->addrIp);
+    ((Station*)machine->machine)->addrIp = NULL;
+  }
+  else if (machine->typemachine == TypeSwitch) {
+
+  }
 }
 
 

@@ -1,4 +1,5 @@
 #include "type.h"
+#include <stddef.h>
 
 #ifndef MACHINE_H
 #define MACHINE_H
@@ -29,7 +30,7 @@ typedef union Machine {
 } Machine;
 
 void initStation(Machine* machine, Mac addrMac, IP addrIp);
-void initSwitch(Machine* machine, Mac addrMac, uint8_t priorite);
+void initSwitch(Machine* machine, Mac addrMac, size_t nbPorts, uint8_t priorite);
 
 void deinitMachine(Machine* machine);
 void afficheMachine(Machine* machine);
