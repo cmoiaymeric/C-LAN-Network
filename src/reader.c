@@ -21,7 +21,7 @@ void readFile(char* fileName, char* fileString) {
     int nbSommets = 0;
     int nbAretes = 0;
     int typeMachine = 0;
-    int port = 0;
+    int ports = 0;
     int priorite = 0;
     int s1 = 0;
     int s2 = 0;
@@ -53,8 +53,8 @@ void readFile(char* fileName, char* fileString) {
         Machine* machine = malloc(sizeof(Machine));
 
         if(fileString[0] == '2'){
-            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%d", &typeMachine, *adresseMac, *(adresseMac+1), *(adresseMac+2), *(adresseMac+3), *(adresseMac+4), *(adresseMac+5), &port, &priorite);
-            printf("Type de machine : %d\t", typeMachine);
+            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%d", &typeMachine, *adresseMac, *(adresseMac+1), *(adresseMac+2), *(adresseMac+3), *(adresseMac+4), *(adresseMac+5), &ports, &priorite);
+            /*printf("Type de machine : %d\t", typeMachine);
             printf("Adresse MAC : ");
             for (int h = 0; h < 6; h++)
             {
@@ -63,13 +63,15 @@ void readFile(char* fileName, char* fileString) {
                     printf(":");
                 }
             }
-            printf("\tPort : %d\t", port);
-            printf("Priorité : %d\n", priorite);
+            printf("\tports : %d\t", ports);
+            printf("Priorité : %d\n", priorite);*/
+            initSwitch(machine, *adresseMac, ports, priorite);
+            afficherMachine(machine);
             printf("\n");
         }
         else{
             sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &typeMachine, *adresseMac, *(adresseMac+1), *(adresseMac+2), *(adresseMac+3), *(adresseMac+4), *(adresseMac+5), *adresseIP, *(adresseIP+1), *(adresseIP+2), *(adresseIP+3));
-            printf("Type de machine : %d\t", typeMachine);
+            /*printf("Type de machine : %d\t", typeMachine);
             printf("Adresse MAC : ");
             for (int h = 0; h < 6; h++)
             {
@@ -84,8 +86,9 @@ void readFile(char* fileName, char* fileString) {
                 if (j < 3) {
                     printf(".");
                 }
-            }
+            }*/
             initStation(machine, *adresseMac, *adresseIP);
+            afficherMachine(machine);
             printf("\n\n");
         }
     }
