@@ -5,6 +5,8 @@
 
 #include "reader.h"
 #include "machine.c"
+#include "type.c"
+
 
 #define MAX_STR_LENGTH 128
 
@@ -66,7 +68,6 @@ void readFile(char* fileName, char* fileString) {
             printf("\tports : %d\t", ports);
             printf("Priorité : %d\n", priorite);*/
             initSwitch(machine, *adresseMac, ports, priorite);
-            afficherMachine(machine);
             printf("\n");
         }
         else{
@@ -87,8 +88,9 @@ void readFile(char* fileName, char* fileString) {
                     printf(".");
                 }
             }*/
+           
             initStation(machine, *adresseMac, *adresseIP);
-            afficherMachine(machine);
+            afficheMachine(machine);
             printf("\n\n");
         }
     }
