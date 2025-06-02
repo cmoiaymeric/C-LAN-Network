@@ -28,5 +28,6 @@ Mac* macFromString(char * String, Mac* mac) {
 
 
 IP* ipFromString(char * String, IP* ip) {
- return ip;
+  sscanf(String, "%hhu.%hhu.%hhu.%hhu", &ip[0], &ip[1], &ip[2], &ip[3]);
+  return ip;
 }
