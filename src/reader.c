@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "reader.h"
-#include "machine.h"
+#include "machine.c"
 
 #define MAX_STR_LENGTH 128
 
@@ -49,6 +49,9 @@ void readFile(char* fileName, char* fileString) {
             break;
             exit(-1);
         }
+
+        Machine* machine = malloc(sizeof(Machine));
+
         if(fileString[0] == '2'){
             sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%d", &typeMachine, *adresseMac, *(adresseMac+1), *(adresseMac+2), *(adresseMac+3), *(adresseMac+4), *(adresseMac+5), &port, &priorite);
             printf("Type de machine : %d\t", typeMachine);
@@ -82,6 +85,7 @@ void readFile(char* fileName, char* fileString) {
                     printf(".");
                 }
             }
+            initStation(machine, *adresseMac, *adresseIP);
             printf("\n\n");
         }
     }
