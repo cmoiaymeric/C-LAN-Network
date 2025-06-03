@@ -12,15 +12,15 @@ typedef struct Station {
 } Station;
 
 typedef struct {
-  int16_t port;
+  uint8_t port;
   Mac destination;
 } commutation;
  
 typedef struct Switch
 {
   Mac addrMac;
-  int nbPort;
-  int priorite;
+  uint8_t nbPort;
+  uint16_t priorite;
   commutation* commutations;
 } Switch;
 
@@ -35,7 +35,7 @@ typedef union Machine {
 } Machine;
 
 void initStation(Machine* machine, Mac addrMac, IP addrIp);
-void initSwitch(Machine* machine, Mac addrMac, int nbPorts, uint8_t priorite);
+void initSwitch(Machine* machine, Mac addrMac, uint8_t nbPorts, uint16_t priorite);
 
 void deinitMachine(Machine* machine);
 void afficheMachine(Machine* machine);

@@ -12,6 +12,7 @@ typedef uint8_t octet;
 typedef struct Mac {
     octet octets[6];
 }Mac;
+
 typedef struct IP {
     octet octets[4];
 }IP;

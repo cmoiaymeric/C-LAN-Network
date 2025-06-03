@@ -15,11 +15,11 @@ void initStation(Machine* machine, Mac addrMac, IP addrIp) {
   station->addrIp = addrIp;
   station->addrMac = addrMac;
 
-  machine->machine = station;
+  //machine->machine = station;
   printf("test type machine après machine->machine = station : %d\n", machine->typemachine);
 }
 
-void initSwitch(Machine *machine, Mac addrMac, int nbPorts, uint8_t priorite) {
+void initSwitch(Machine *machine, Mac addrMac, uint8_t nbPorts, uint16_t priorite) {
   machine->typemachine = TypeSwitch;
   printf("test type machine : %d\n", machine->typemachine);
 
@@ -29,8 +29,8 @@ void initSwitch(Machine *machine, Mac addrMac, int nbPorts, uint8_t priorite) {
   siwtch->addrMac = addrMac;
   siwtch->nbPort = nbPorts;
   siwtch->priorite = priorite;
-  machine->machine = siwtch;
-
+  
+  //machine->machine = siwtch;
   printf("test type machine après machine->machine = siwtch : %d\n", machine->typemachine);
 
 }
@@ -52,6 +52,11 @@ void afficheMachine(Machine *machine) {
   macString = malloc(sizeof(char)*18);
   char* ipString = NULL;
   ipString = malloc(sizeof(char)*16);
+
+  printf("Type de machine test : %d\n", machine->typemachine);
+  printf("Type de machine test : %d\n", TypeStation);
+  printf("Type de machine test : %d\n", TypeSwitch);
+  printf("Jusqu'ici ça va\n");
 
   if (machine->typemachine == TypeStation) 
   {

@@ -23,8 +23,8 @@ void readFile(char* fileName, char* fileString) {
     int nbSommets = 0;
     int nbAretes = 0;
     int typeMachine = 0;
-    int ports = 0;
-    uint8_t priorite = 0;
+    uint8_t ports = 0;
+    uint16_t priorite = 0;
     int s1 = 0;
     int s2 = 0;
     int poids = 0;
@@ -58,7 +58,7 @@ void readFile(char* fileName, char* fileString) {
         sscanf(fileString, "%d", &typeMachine);
 
         if(typeMachine == TypeSwitch){
-            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%hhd", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
+            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
                    &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &ports, &priorite);
             //printf("Type de machine : %d\t", typeMachine);
             /*printf("Adresse MAC : ");
