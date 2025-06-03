@@ -1,4 +1,4 @@
-FLAGS=-Wall -Wextra -Wno-unused-parameter -Werror -pedantic -std=c99
+FLAGS= -Wall -Wextra -Wno-unused-parameter -Werror -pedantic -std=c99
 
 all: main
 
@@ -10,6 +10,9 @@ type.o: ./src/type.c ./src/type.h
 
 machine.o: ./src/machine.c ./src/machine.h
 	gcc -c $(FLAGS) machine.c
+
+main.o: ./src/main.c
+	gcc -c $(FLAGS) main.c
 
 main: ./src/reader.o ./src/type.o ./src/machine.o ./src/main.o
 	gcc -o main ./src/reader.o ./src/main.o -lm

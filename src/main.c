@@ -1,4 +1,6 @@
 #include "reader.h"
+#include "machine.h"
+#include "type.h"
 #include "reseau.h"
 
 #include <stdio.h>
