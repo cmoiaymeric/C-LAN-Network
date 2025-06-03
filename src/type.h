@@ -20,11 +20,15 @@ typedef enum typeTrame{
     ICMP,BPDU,ARP,IPv4,IPv6,DHCP
 }typeTrame;
 
-typedef struct trame{
+typedef struct Trame{
+    uint8_t preambule[7];
+    uint8_t SFD;
     Mac addrDestination;
     Mac addrSource;
     typeTrame type;
-}trame;
+    char data[1500];
+    uint32_t FCS;
+}Trame;
 
 char * macToString(Mac mac, char * macString);
 char * ipToString(IP ip, char * ipString);
