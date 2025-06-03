@@ -3,4 +3,4 @@
 .vscode/
 
 # On enlève les fichiers de ressources sauf les .lan
-Ressources/*
+Ressources/
