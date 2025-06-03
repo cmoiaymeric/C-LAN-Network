@@ -61,12 +61,3 @@ void afficheMachine(Machine *machine) {
 }
 
 
-bool device_is_station(Device *device)
-{
-  return Machine->typemachine == TypeStation;
-}
-
-bool device_is_switch(Device *device)
-{
-  return Machine->typemachine == TypeSwitch;
-}

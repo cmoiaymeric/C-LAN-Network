@@ -40,8 +40,6 @@ void initSwitch(Machine* machine, Mac addrMac, size_t nbPorts, uint8_t priorite)
 void deinitMachine(Machine* machine);
 void afficheMachine(Machine* machine);
 
-Bool isStation(Machine* machine);
-Bool isSwitch(Machine* machine);
 
 void ajouteVoisin(Machine* machine, Mac mac);
 
