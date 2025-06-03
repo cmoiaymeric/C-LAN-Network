@@ -4,8 +4,8 @@
 #include <string.h>
 
 #include "reader.h"
-#include "machine.c"
 #include "type.c"
+#include "machine.c"
 
 
 #define MAX_STR_LENGTH 128
@@ -45,6 +45,7 @@ void readFile(char* fileName, char* fileString) {
     sscanf(fileString, "%d %d", &nbSommets, &nbAretes);
 
     for(int i = 0; i < nbSommets; i++) {
+
         fgets(fileString, MAX_STR_LENGTH, inputFile);
         if (ferror(inputFile)) {
             fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
@@ -54,7 +55,11 @@ void readFile(char* fileName, char* fileString) {
 
         Machine* machine = malloc(sizeof(Machine));
 
-        if(fileString[0] == '2'){
+        sscanf(fileString, "%d", &typeMachine);
+
+        printf("Type de machine test : %d || %d\t", typeMachine, TypeStation);
+
+        if(typeMachine == TypeSwitch){
             sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%d", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
                    &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &ports, &priorite);
             /*printf("Type de machine : %d\t", typeMachine);
@@ -69,6 +74,10 @@ void readFile(char* fileName, char* fileString) {
             printf("\tports : %d\t", ports);
             printf("Priorité : %d\n", priorite);*/
             initSwitch(machine, *adresseMac, ports, priorite);
+            afficheMachine(machine);
+            // On libère la mémoire allouée pour la machine
+            free(machine);
+            machine = NULL;
             printf("\n");
         }
         else{
