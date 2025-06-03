@@ -24,7 +24,7 @@ void readFile(char* fileName, char* fileString) {
     int nbAretes = 0;
     int typeMachine = 0;
     int ports = 0;
-    int priorite = 0;
+    uint8_t priorite = 0;
     int s1 = 0;
     int s2 = 0;
     int poids = 0;
@@ -57,13 +57,11 @@ void readFile(char* fileName, char* fileString) {
 
         sscanf(fileString, "%d", &typeMachine);
 
-        printf("Type de machine test : %d || %d\t", typeMachine, TypeStation);
-
         if(typeMachine == TypeSwitch){
-            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%d", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
+            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%hhd", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
                    &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &ports, &priorite);
-            /*printf("Type de machine : %d\t", typeMachine);
-            printf("Adresse MAC : ");
+            //printf("Type de machine : %d\t", typeMachine);
+            /*printf("Adresse MAC : ");
             for (int h = 0; h < 6; h++)
             {
                 printf("%02x", **(adresseMac+h));
@@ -76,8 +74,6 @@ void readFile(char* fileName, char* fileString) {
             initSwitch(machine, *adresseMac, ports, priorite);
             afficheMachine(machine);
             // On libère la mémoire allouée pour la machine
-            free(machine);
-            machine = NULL;
             printf("\n");
         }
         else{
@@ -102,9 +98,10 @@ void readFile(char* fileName, char* fileString) {
            
             initStation(machine, *adresseMac, *adresseIP);
             afficheMachine(machine);
-            printf("\n\n");
+            printf("\n");
         }
     }
+    printf("\n");
 
     for(int i = 0; i < nbAretes; i++) {
         fgets(fileString, MAX_STR_LENGTH, inputFile);
