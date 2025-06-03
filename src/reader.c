@@ -55,7 +55,8 @@ void readFile(char* fileName, char* fileString) {
         Machine* machine = malloc(sizeof(Machine));
 
         if(fileString[0] == '2'){
-            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%d", &typeMachine, *adresseMac, *(adresseMac+1), *(adresseMac+2), *(adresseMac+3), *(adresseMac+4), *(adresseMac+5), &ports, &priorite);
+            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%d;%d", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
+                   &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &ports, &priorite);
             /*printf("Type de machine : %d\t", typeMachine);
             printf("Adresse MAC : ");
             for (int h = 0; h < 6; h++)
@@ -71,7 +72,8 @@ void readFile(char* fileName, char* fileString) {
             printf("\n");
         }
         else{
-            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &typeMachine, *adresseMac, *(adresseMac+1), *(adresseMac+2), *(adresseMac+3), *(adresseMac+4), *(adresseMac+5), *adresseIP, *(adresseIP+1), *(adresseIP+2), *(adresseIP+3));
+            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
+                   &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &adresseIP->octets[0], &adresseIP->octets[1], &adresseIP->octets[2], &adresseIP->octets[3]);
             /*printf("Type de machine : %d\t", typeMachine);
             printf("Adresse MAC : ");
             for (int h = 0; h < 6; h++)
