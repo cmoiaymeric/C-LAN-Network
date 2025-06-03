@@ -22,12 +22,12 @@ char * ipToString(IP ip, char * ipString)
 }
 
 Mac* macFromString(char * String, Mac* mac) {
-  sscanf(String, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:", mac->octets[0],mac->octets[1],mac->octets[2],mac->octets[3],mac->octets[4],mac->octets[5]);
+  sscanf(String, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:", &mac->octets[0],&mac->octets[1],&mac->octets[2],&mac->octets[3],&mac->octets[4],&mac->octets[5]);
   return mac;
 }
 
 
 IP* ipFromString(char * String, IP* ip) {
-  sscanf(String, "%hhu.%hhu.%hhu.%hhu", ip->octets[0], ip->octets[1], ip->octets[2], ip->octets[3]);
+  sscanf(String, "%hhu.%hhu.%hhu.%hhu", &ip->octets[0], &ip->octets[1], &ip->octets[2], &ip->octets[3]);
   return ip;
 }
