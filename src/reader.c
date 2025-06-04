@@ -4,8 +4,8 @@
 #include <string.h>
 
 #include "reader.h"
-#include "type.c"
-#include "machine.c"
+#include "machine.h"
+#include "type.h"
 
 
 #define MAX_STR_LENGTH 128
@@ -20,14 +20,14 @@ void readFile(char* fileName, char* fileString) {
     IP* adresseIP = NULL;
     adresseIP = malloc(sizeof(IP));
 
-    int nbSommets = 0;
-    int nbAretes = 0;
-    int typeMachine = 0;
+    uint8_t nbSommets = 0;
+    uint8_t nbAretes = 0;
+    uint8_t typeMachine = 0;
     uint8_t ports = 0;
     uint16_t priorite = 0;
-    int s1 = 0;
-    int s2 = 0;
-    int poids = 0;
+    uint16_t s1 = 0;
+    uint16_t s2 = 0;
+    uint16_t poids = 0;
 
     if(inputFile == NULL){
         printf("Impossible d'ouvrir le fichier %s\n", fileName);
@@ -42,9 +42,9 @@ void readFile(char* fileName, char* fileString) {
     }
     
     //On lit la première ligne
-    sscanf(fileString, "%d %d", &nbSommets, &nbAretes);
+    sscanf(fileString, "%hhd %hhd", &nbSommets, &nbAretes);
 
-    for(int i = 0; i < nbSommets; i++) {
+    for(uint8_t i = 0; i < nbSommets; i++) {
 
         fgets(fileString, MAX_STR_LENGTH, inputFile);
         if (ferror(inputFile)) {
@@ -55,10 +55,13 @@ void readFile(char* fileName, char* fileString) {
 
         Machine* machine = malloc(sizeof(Machine));
 
-        sscanf(fileString, "%d", &typeMachine);
+        sscanf(fileString, "%hhd", &typeMachine);
 
         if(typeMachine == TypeSwitch){
-            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
+
+            printf("=====================================================================================\n");
+
+            sscanf(fileString, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
                    &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &ports, &priorite);
             //printf("Type de machine : %d\t", typeMachine);
             /*printf("Adresse MAC : ");
@@ -77,7 +80,10 @@ void readFile(char* fileName, char* fileString) {
             printf("\n");
         }
         else{
-            sscanf(fileString, "%d;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
+
+            printf("=====================================================================================\n");
+
+            sscanf(fileString, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], 
                    &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &adresseIP->octets[0], &adresseIP->octets[1], &adresseIP->octets[2], &adresseIP->octets[3]);
             /*printf("Type de machine : %d\t", typeMachine);
             printf("Adresse MAC : ");
@@ -101,20 +107,21 @@ void readFile(char* fileName, char* fileString) {
             printf("\n");
         }
     }
-    printf("\n");
 
-    for(int i = 0; i < nbAretes; i++) {
+    printf("=====================================================================================\n");
+
+    for(uint8_t i = 0; i < nbAretes; i++) {
         fgets(fileString, MAX_STR_LENGTH, inputFile);
         if (ferror(inputFile)) {
             fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
             break;
             exit(-1);
         }
-        sscanf(fileString, "%d;%d;%d", &s1, &s2, &poids);
+        sscanf(fileString, "%hd;%hd;%hd", &s1, &s2, &poids);
         printf("Arete : s1 : %d\t| s2 : %d\t", s1, s2);
         printf("Poids : %d\n", poids);
+        printf("=========================================\n");
     }
-
     fclose(inputFile);
     free(fileString);
     fileString = NULL;

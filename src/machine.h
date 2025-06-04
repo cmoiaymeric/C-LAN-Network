@@ -11,7 +11,7 @@ typedef struct Station {
   Mac voisin;
 } Station;
 
-typedef struct {
+typedef struct commutation {
   uint8_t port;
   Mac destination;
 } commutation;
@@ -29,7 +29,7 @@ typedef enum TypeMachine {
   TypeSwitch = 2,
 } TypeMachine;
 
-typedef union Machine {
+typedef struct Machine {
   TypeMachine typemachine;
   void* machine;
 } Machine;

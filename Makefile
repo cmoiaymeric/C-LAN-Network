@@ -15,7 +15,7 @@ main.o: ./src/main.c
 	gcc -c $(FLAGS) main.c
 
 main: ./src/reader.o ./src/type.o ./src/machine.o ./src/main.o
-	gcc -o main ./src/reader.o ./src/main.o -lm
+	gcc -o main ./src/reader.o ./src/type.o ./src/machine.o ./src/main.o -lm
 
 clean:
 	rm ./src/*.o
