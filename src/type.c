@@ -3,8 +3,11 @@
 #include <stdio.h>
 
 char * macToString(Mac mac, char * macString) {
+
+  // Format MAC : xx:xx:xx:xx:xx:xx
+
   for (uint8_t i = 0; i < 6; i++) {
-    sprintf(macString, "%s%02hhx", macString, mac.octets[i]);
+    sprintf(macString, "%s%02hhx", macString, mac.octets[i]); // sprintf utilisé pour formater et concatener la chaine de caractères
     if (i < 5) strcat(macString,":");
   }
   return macString;

@@ -17,4 +17,5 @@ int main(int argc, char* argv[]) {
   char* file = argv[0];
   char* fileString = NULL;
   readFile(file, fileString);
+  printf("Le fichier a été traité avec succès\n");
 }

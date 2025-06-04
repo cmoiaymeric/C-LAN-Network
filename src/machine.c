@@ -63,7 +63,9 @@ void afficheMachine(Machine *machine) {
     printf("Erreur d'affichage");
   }
   free(macString);
+  macString = NULL;
   free(ipString);
+  ipString = NULL;
 }
 
 
