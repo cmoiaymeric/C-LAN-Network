@@ -4,8 +4,10 @@
 #include <string.h>
 #include <stdint.h>
 
+typedef uint16_t machine_t;
+
 typedef struct Connexion {
-    uint16_t machine_1; // Sommet 1
-    uint16_t machine_2; // Sommet 2
+    machine_t machine_1; // Sommet 1
+    machine_t machine_2; // Sommet 2
     uint8_t poids; // Poids de la connexion
 } Connexion;
