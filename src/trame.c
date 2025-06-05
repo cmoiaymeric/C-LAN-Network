@@ -1,6 +1,6 @@
 #include "trame.h"
 
-void initTrame(Trame *trame, Mac sourceMac, Mac destMac, uint16_t type, char *data)
+void init_trame(Trame *trame, Mac sourceMac, Mac destMac, uint16_t type, char *data)
 {
     for (int i = 0; i < 7; i++)
     {

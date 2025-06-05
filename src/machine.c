@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void initStation(Machine* machine, Mac addrMac, IP addrIp) {
+void init_station(Machine* machine, Mac addrMac, IP addrIp) {
   machine->typemachine = TypeStation;
 
   Station* station = malloc(sizeof(Station));
@@ -15,7 +15,7 @@ void initStation(Machine* machine, Mac addrMac, IP addrIp) {
   machine->machine = station;
 }
 
-void initSwitch(Machine *machine, Mac addrMac, uint8_t nbPorts, uint16_t priorite) {
+void init_switch(Machine *machine, Mac addrMac, uint8_t nbPorts, uint16_t priorite) {
   machine->typemachine = TypeSwitch;
 
   Switch* siwtch = malloc(sizeof(Switch));
@@ -28,7 +28,7 @@ void initSwitch(Machine *machine, Mac addrMac, uint8_t nbPorts, uint16_t priorit
 
 }
 
-void deinitMachine(Machine *machine) {
+void deinit_machine(Machine *machine) {
   if (machine->typemachine == TypeStation) {
     free(((Station*)machine->machine));
     machine->machine = NULL;
@@ -40,7 +40,7 @@ void deinitMachine(Machine *machine) {
 }
 
 
-void afficheMachine(Machine *machine) {
+void afficher_machine(Machine *machine) {
   char* macString = NULL;
   macString = malloc(sizeof(char)*18);
   char* ipString = NULL;
@@ -49,13 +49,13 @@ void afficheMachine(Machine *machine) {
   if (machine->typemachine == TypeStation) 
   {
     printf("Type de machine : Station  ");
-    printf("Adresse MAC : %s   ",macToString(((Station*)machine->machine)->addrMac, macString));
-    printf("Adresse IP : %s   ",ipToString(((Station*)machine->machine)->addrIp, ipString));
+    printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine->machine)->addrMac, macString));
+    printf("Adresse IP : %s   ",ip_to_string(((Station*)machine->machine)->addrIp, ipString));
   }
   else if (machine->typemachine == TypeSwitch) 
   {
     printf("Type de machine : Switch   ");
-    printf("Adresse MAC : %s   ",macToString(((Switch*)machine->machine)->addrMac, macString));
+    printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine->machine)->addrMac, macString));
     printf("Priorité : %u   ",((Switch*)machine->machine)->priorite);
   }
   else 

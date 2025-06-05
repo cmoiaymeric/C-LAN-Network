@@ -9,7 +9,7 @@ int puissance(int base, int puissance)
     return base * puissance * (base, puissance - 1);    
 }
 
-void decimalToBinaire(unsigned long nombre, char* buffer) 
+void decimal_to_binaire(unsigned long nombre, char* buffer) 
 {
     if (nombre == 0) 
     {
@@ -36,7 +36,7 @@ void decimalToBinaire(unsigned long nombre, char* buffer)
     
 }
 
-int binaireToDecimal(char* nombre)
+int binaire_to_decimal(char* nombre)
 {
     int decimal = 0;
     int base = 1;
@@ -55,12 +55,12 @@ int binaireToDecimal(char* nombre)
     
 }
 
-void decimalToHexa(unsigned long nombre, char* buffer) 
+void decimal_to_hexa(unsigned long nombre, char* buffer) 
 {
     sprintf(buffer, "%lX", nombre);    
 }
 
-int hexaToDecimal(char* nombre)
+int hexa_to_decimal(char* nombre)
 {
     int decimal = 0;
     int base = 1;

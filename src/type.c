@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-char * macToString(Mac mac, char * macString) {
+char * mac_to_string(Mac mac, char * macString) {
 
   // Format MAC : xx:xx:xx:xx:xx:xx
 
@@ -13,7 +13,7 @@ char * macToString(Mac mac, char * macString) {
   return macString;
 }
 
-char * ipToString(IP ip, char * ipString)
+char * ip_to_string(IP ip, char * ipString)
 {
     // Format IP : xxx.xxx.xxx.xxx
 
@@ -24,13 +24,13 @@ char * ipToString(IP ip, char * ipString)
     return ipString;
 }
 
-Mac* macFromString(char * String, Mac* mac) {
+Mac* mac_from_string(char * String, Mac* mac) {
   sscanf(String, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:", &mac->octets[0],&mac->octets[1],&mac->octets[2],&mac->octets[3],&mac->octets[4],&mac->octets[5]);
   return mac;
 }
 
 
-IP* ipFromString(char * String, IP* ip) {
+IP* ip_from_string(char * String, IP* ip) {
   sscanf(String, "%hhu.%hhu.%hhu.%hhu", &ip->octets[0], &ip->octets[1], &ip->octets[2], &ip->octets[3]);
   return ip;
 }

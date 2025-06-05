@@ -34,11 +34,11 @@ typedef struct Machine {
   void* machine;
 } Machine;
 
-void initStation(Machine* machine, Mac addrMac, IP addrIp);
-void initSwitch(Machine* machine, Mac addrMac, uint8_t nbPorts, uint16_t priorite);
+void init_station(Machine* machine, Mac addrMac, IP addrIp);
+void init_switch(Machine* machine, Mac addrMac, uint8_t nbPorts, uint16_t priorite);
 
-void deinitMachine(Machine* machine);
-void afficheMachine(Machine* machine);
+void deinit_machine(Machine* machine);
+void afficher_machine(Machine* machine);
 
 
 void ajouteVoisin(Machine* machine, Mac mac);

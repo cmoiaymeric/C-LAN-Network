@@ -8,7 +8,7 @@ typedef struct Reseau {
   Machine * machines;
 } Reseau;
 
-void initReseau(Reseau* reseau);
-void deinitReseau(Reseau* reseau);
+void init_reseau(Reseau* reseau);
+void deinit_reseau(Reseau* reseau);
 
 #endif

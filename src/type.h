@@ -31,10 +31,10 @@ typedef struct Trame{
     uint32_t FCS;
 }Trame;
 
-char * macToString(Mac mac, char * macString);
-char * ipToString(IP ip, char * ipString);
+char * mac_to_string(Mac mac, char * macString);
+char * ip_to_string(IP ip, char * ipString);
 
-Mac* macFromString(char * String, Mac* mac);
-IP* ipFromString(char * String, IP* ip);
+Mac* mac_from_string(char * String, Mac* mac);
+IP* ip_from_string(char * String, IP* ip);
 
 #endif

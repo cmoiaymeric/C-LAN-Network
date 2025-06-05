@@ -11,7 +11,7 @@
 #define MAX_STR_LENGTH 128
 
 // Fonction pour lire le fichier et afficher les informations
-void readFile(char* fileName, char* fileString) {
+void read_config_file(char* fileName, char* fileString) {
     
     FILE* inputFile = fopen(fileName, "r");
 
@@ -64,8 +64,8 @@ void readFile(char* fileName, char* fileString) {
             sscanf(fileString, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &ports, &priorite);
             
             
-            initSwitch(machine, *adresseMac, ports, priorite);
-            afficheMachine(machine);
+            init_switch(machine, *adresseMac, ports, priorite);
+            afficher_machine(machine);
             
             printf("\n");
         }
@@ -74,8 +74,8 @@ void readFile(char* fileName, char* fileString) {
 
             sscanf(fileString, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &adresseIP->octets[0], &adresseIP->octets[1], &adresseIP->octets[2], &adresseIP->octets[3]);
            
-            initStation(machine, *adresseMac, *adresseIP);
-            afficheMachine(machine);
+            init_station(machine, *adresseMac, *adresseIP);
+            afficher_machine(machine);
 
             printf("\n");
         }

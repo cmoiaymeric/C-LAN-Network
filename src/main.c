@@ -12,10 +12,11 @@ int main(int argc, char* argv[]) {
     
   if ( argc == 0 ) {
     printf( "Usage: entrez un nom de fichier\n" );
-    exit( 0 );
+    exit(-1);
   }
   char* file = argv[0];
   char* fileString = NULL;
-  readFile(file, fileString);
+  read_config_file(file, fileString);
   printf("Le fichier a été traité avec succès\n");
+  exit(0);
 }

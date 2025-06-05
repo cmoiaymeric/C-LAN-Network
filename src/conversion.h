@@ -4,10 +4,10 @@
 
 int puissance(int base, int puissance);
 
-void decimalToBinaire(unsigned long nombre, char* buffer);
+void decimal_to_binaire(unsigned long nombre, char* buffer);
 
-int binaireToDecimal(char* nombre);
+int binaire_to_decimal(char* nombre);
 
-void decimalToHexa(unsigned long nombre, char* buffer);
+void decimal_to_hexa(unsigned long nombre, char* buffer);
 
-int hexaToDecimal(char* nombre);
+int hexa_to_decimal(char* nombre);
