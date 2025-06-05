@@ -2,35 +2,35 @@
 
 #include <stdio.h>
 
-char * mac_to_string(Mac mac, char * macString) {
+char * mac_to_string(Mac adresse_mac, char * mac_string) {
 
   // Format MAC : xx:xx:xx:xx:xx:xx
 
   for (uint8_t i = 0; i < 6; i++) {
-    sprintf(macString, "%s%02hhx", macString, mac.octets[i]); // sprintf utilisé pour formater et concatener la chaine de caractères
-    if (i < 5) strcat(macString,":");
+    sprintf(mac_string, "%s%02hhx", mac_string, adresse_mac.octets[i]); // sprintf utilisé pour formater et concatener la chaine de caractères
+    if (i < 5) strcat(mac_string,":");
   }
-  return macString;
+  return mac_string;
 }
 
-char * ip_to_string(IP ip, char * ipString)
+char * ip_to_string(IP ip, char * ip_string)
 {
     // Format IP : xxx.xxx.xxx.xxx
 
     for (size_t i = 0; i < 4; i++) {
-    sprintf(ipString, "%s%hhu", ipString, ip.octets[i]);
-    if (i < 3) strcat(ipString, ".");
+    sprintf(ip_string, "%s%hhu", ip_string, ip.octets[i]);
+    if (i < 3) strcat(ip_string, ".");
     }  
-    return ipString;
+    return ip_string;
 }
 
-Mac* mac_from_string(char * String, Mac* mac) {
-  sscanf(String, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:", &mac->octets[0],&mac->octets[1],&mac->octets[2],&mac->octets[3],&mac->octets[4],&mac->octets[5]);
-  return mac;
+Mac* mac_from_string(char * mac_string, Mac* adresse_mac) {
+  sscanf(mac_string, "%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:", &adresse_mac->octets[0],&adresse_mac->octets[1],&adresse_mac->octets[2],&adresse_mac->octets[3],&adresse_mac->octets[4],&adresse_mac->octets[5]);
+  return adresse_mac;
 }
 
 
-IP* ip_from_string(char * String, IP* ip) {
-  sscanf(String, "%hhu.%hhu.%hhu.%hhu", &ip->octets[0], &ip->octets[1], &ip->octets[2], &ip->octets[3]);
+IP* ip_from_string(char * ip_string, IP* ip) {
+  sscanf(ip_string, "%hhu.%hhu.%hhu.%hhu", &ip->octets[0], &ip->octets[1], &ip->octets[2], &ip->octets[3]);
   return ip;
 }

@@ -5,23 +5,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-void init_station(Machine* machine, Mac addrMac, IP addrIp) {
-  machine->typemachine = TypeStation;
+void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip) {
+  machine->type_machine = TypeStation;
 
   Station* station = malloc(sizeof(Station));
-  station->addrIp = addrIp;
-  station->addrMac = addrMac;
+  station->adresse_ip = adresse_ip;
+  station->adresse_mac = adresse_mac;
 
   machine->machine = station;
 }
 
-void init_switch(Machine *machine, Mac addrMac, uint8_t nbPorts, uint16_t priorite) {
-  machine->typemachine = TypeSwitch;
+void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t priorite) {
+  machine->type_machine = TypeSwitch;
 
   Switch* siwtch = malloc(sizeof(Switch));
 
-  siwtch->addrMac = addrMac;
-  siwtch->nbPort = nbPorts;
+  siwtch->adresse_mac = adresse_mac;
+  siwtch->nb_ports = nb_ports;
   siwtch->priorite = priorite;
   
   machine->machine = siwtch;
@@ -29,11 +29,11 @@ void init_switch(Machine *machine, Mac addrMac, uint8_t nbPorts, uint16_t priori
 }
 
 void deinit_machine(Machine *machine) {
-  if (machine->typemachine == TypeStation) {
+  if (machine->type_machine == TypeStation) {
     free(((Station*)machine->machine));
     machine->machine = NULL;
   }
-  else if (machine->typemachine == TypeSwitch) {
+  else if (machine->type_machine == TypeSwitch) {
     free(((Switch*)machine->machine));
     machine->machine = NULL;
   }
@@ -46,16 +46,16 @@ void afficher_machine(Machine *machine) {
   char* ipString = NULL;
   ipString = malloc(sizeof(char)*16);
 
-  if (machine->typemachine == TypeStation) 
+  if (machine->type_machine == TypeStation) 
   {
     printf("Type de machine : Station  ");
-    printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine->machine)->addrMac, macString));
-    printf("Adresse IP : %s   ",ip_to_string(((Station*)machine->machine)->addrIp, ipString));
+    printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine->machine)->adresse_mac, macString));
+    printf("Adresse IP : %s   ",ip_to_string(((Station*)machine->machine)->adresse_ip, ipString));
   }
-  else if (machine->typemachine == TypeSwitch) 
+  else if (machine->type_machine == TypeSwitch) 
   {
     printf("Type de machine : Switch   ");
-    printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine->machine)->addrMac, macString));
+    printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine->machine)->adresse_mac, macString));
     printf("Priorité : %u   ",((Switch*)machine->machine)->priorite);
   }
   else 

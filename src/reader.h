@@ -2,4 +2,4 @@
 
 #include <stdint.h>
 
-void read_config_file(char* fileName, char* fileString);
+void read_config_file(char* file_name, char* file_string);

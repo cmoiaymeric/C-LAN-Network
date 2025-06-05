@@ -11,11 +11,14 @@ type.o: ./src/type.c ./src/type.h
 machine.o: ./src/machine.c ./src/machine.h
 	gcc -c $(FLAGS) machine.c
 
+connexion.o: ./src/connexion.c ./src/connexion.h
+	gcc -c $(FLAGS) connexion.c
+
 main.o: ./src/main.c
 	gcc -c $(FLAGS) main.c
 
-main: ./src/reader.o ./src/type.o ./src/machine.o ./src/main.o
-	gcc -o main ./src/reader.o ./src/type.o ./src/machine.o ./src/main.o -lm
+main: ./src/reader.o ./src/type.o ./src/machine.o ./src/connexion.o ./src/main.o
+	gcc -o main ./src/reader.o ./src/type.o ./src/machine.o ./src/connexion.o ./src/main.o -lm
 
 clean:
 	rm ./src/*.o

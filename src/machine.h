@@ -6,22 +6,22 @@
 
 
 typedef struct Station {
-  Mac addrMac;
-  IP addrIp;
+  Mac adresse_mac;
+  IP adresse_ip;
   Mac voisin;
 } Station;
 
-typedef struct commutation {
+typedef struct Commutation {
   uint8_t port;
   Mac destination;
-} commutation;
+} Commutation;
  
 typedef struct Switch
 {
-  Mac addrMac;
-  uint8_t nbPort;
+  Mac adresse_mac;
+  uint8_t nb_ports;
   uint16_t priorite;
-  commutation* commutations;
+  Commutation* commutations;
 } Switch;
 
 typedef enum TypeMachine {
@@ -30,12 +30,12 @@ typedef enum TypeMachine {
 } TypeMachine;
 
 typedef struct Machine {
-  TypeMachine typemachine;
+  TypeMachine type_machine;
   void* machine;
 } Machine;
 
-void init_station(Machine* machine, Mac addrMac, IP addrIp);
-void init_switch(Machine* machine, Mac addrMac, uint8_t nbPorts, uint16_t priorite);
+void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip);
+void init_switch(Machine* machine, Mac adresse_mac, uint8_t nbPorts, uint16_t priorite);
 
 void deinit_machine(Machine* machine);
 void afficher_machine(Machine* machine);

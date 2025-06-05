@@ -11,43 +11,43 @@
 #define MAX_STR_LENGTH 128
 
 // Fonction pour lire le fichier et afficher les informations
-void read_config_file(char* fileName, char* fileString) {
+void read_config_file(char* file_name, char* file_string) {
     
-    FILE* inputFile = fopen(fileName, "r");
+    FILE* input_file = fopen(file_name, "r");
 
-    Mac* adresseMac = NULL;
-    adresseMac = malloc(sizeof(Mac));
-    IP* adresseIP = NULL;
-    adresseIP = malloc(sizeof(IP));
+    Mac* adresse_mac = NULL;
+    adresse_mac = malloc(sizeof(Mac));
+    IP* adresse_ip = NULL;
+    adresse_ip = malloc(sizeof(IP));
 
-    uint8_t nbSommets = 0;
-    uint8_t nbAretes = 0;
-    uint8_t typeMachine = 0;
+    uint8_t nb_sommets = 0;
+    uint8_t nb_aretes = 0;
+    uint8_t type_machine = 0;
     uint8_t ports = 0;
     uint16_t priorite = 0;
     uint16_t s1 = 0;
     uint16_t s2 = 0;
     uint16_t poids = 0;
 
-    if(inputFile == NULL){
-        printf("Impossible d'ouvrir le fichier %s\n", fileName);
+    if(input_file == NULL){
+        printf("Impossible d'ouvrir le fichier %s\n", file_name);
         exit(-1);
     }
 
-    fileString = (char*) malloc(MAX_STR_LENGTH);
-    fgets(fileString, MAX_STR_LENGTH, inputFile);
-    if (ferror(inputFile)) {
+    file_string = (char*) malloc(MAX_STR_LENGTH);
+    fgets(file_string, MAX_STR_LENGTH, input_file);
+    if (ferror(input_file)) {
         fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
         exit(-1);
     }
     
     //On lit la première ligne
-    sscanf(fileString, "%hhd %hhd", &nbSommets, &nbAretes);
+    sscanf(file_string, "%hhd %hhd", &nb_sommets, &nb_aretes);
 
-    for(uint8_t i = 0; i < nbSommets; i++) {
+    for(uint8_t i = 0; i < nb_sommets; i++) {
 
-        fgets(fileString, MAX_STR_LENGTH, inputFile);
-        if (ferror(inputFile)) {
+        fgets(file_string, MAX_STR_LENGTH, input_file);
+        if (ferror(input_file)) {
             fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
             break;
             exit(-1);
@@ -55,16 +55,16 @@ void read_config_file(char* fileName, char* fileString) {
 
         Machine* machine = malloc(sizeof(Machine));
 
-        sscanf(fileString, "%hhd", &typeMachine);
+        sscanf(file_string, "%hhd", &type_machine);
 
-        if(typeMachine == TypeSwitch){
+        if(type_machine == TypeSwitch){
 
             printf("=====================================================================================\n");
 
-            sscanf(fileString, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &ports, &priorite);
+            sscanf(file_string, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &type_machine, &adresse_mac->octets[0], &adresse_mac->octets[1], &adresse_mac->octets[2], &adresse_mac->octets[3], &adresse_mac->octets[4], &adresse_mac->octets[5], &ports, &priorite);
             
             
-            init_switch(machine, *adresseMac, ports, priorite);
+            init_switch(machine, *adresse_mac, ports, priorite);
             afficher_machine(machine);
             
             printf("\n");
@@ -72,9 +72,9 @@ void read_config_file(char* fileName, char* fileString) {
         else{
             printf("=====================================================================================\n");
 
-            sscanf(fileString, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &typeMachine, &adresseMac->octets[0], &adresseMac->octets[1], &adresseMac->octets[2], &adresseMac->octets[3], &adresseMac->octets[4], &adresseMac->octets[5], &adresseIP->octets[0], &adresseIP->octets[1], &adresseIP->octets[2], &adresseIP->octets[3]);
+            sscanf(file_string, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &type_machine, &adresse_mac->octets[0], &adresse_mac->octets[1], &adresse_mac->octets[2], &adresse_mac->octets[3], &adresse_mac->octets[4], &adresse_mac->octets[5], &adresse_ip->octets[0], &adresse_ip->octets[1], &adresse_ip->octets[2], &adresse_ip->octets[3]);
            
-            init_station(machine, *adresseMac, *adresseIP);
+            init_station(machine, *adresse_mac, *adresse_ip);
             afficher_machine(machine);
 
             printf("\n");
@@ -83,28 +83,28 @@ void read_config_file(char* fileName, char* fileString) {
 
     printf("=====================================================================================\n");
 
-    for(uint8_t i = 0; i < nbAretes; i++) {
-        fgets(fileString, MAX_STR_LENGTH, inputFile);
-        if (ferror(inputFile)) {
+    for(uint8_t i = 0; i < nb_aretes; i++) {
+        fgets(file_string, MAX_STR_LENGTH, input_file);
+        if (ferror(input_file)) {
             fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
             break;
             exit(-1);
         }
-        sscanf(fileString, "%hd;%hd;%hd", &s1, &s2, &poids);
+        sscanf(file_string, "%hd;%hd;%hd", &s1, &s2, &poids);
         printf("Arete : s1 : %d\t| s2 : %d\t", s1, s2);
         printf("Poids : %d\n", poids);
         printf("=========================================\n");
         
     }
     // On ferme le fichier
-    fclose(inputFile);
+    fclose(input_file);
 
     // Libération de la mémoire
-    free(fileString);
-    fileString = NULL;
-    free(adresseMac);
-    adresseMac = NULL;
-    free(adresseIP);
-    adresseIP = NULL;
+    free(file_string);
+    file_string = NULL;
+    free(adresse_mac);
+    adresse_mac = NULL;
+    free(adresse_ip);
+    adresse_ip = NULL;
 }
 
