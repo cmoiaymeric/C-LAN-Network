@@ -37,4 +37,6 @@ char * ip_to_string(IP adresse_ip, char * ip_string);
 Mac* mac_from_string(char * mac_string, Mac* adresse_mac);
 IP* ip_from_string(char * ip_string, IP* adresse_ip);
 
+int comparer_adresses_mac( Mac addr1, Mac addr2);
+
 #endif

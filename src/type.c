@@ -34,3 +34,14 @@ IP* ip_from_string(char * ip_string, IP* ip) {
   sscanf(ip_string, "%hhu.%hhu.%hhu.%hhu", &ip->octets[0], &ip->octets[1], &ip->octets[2], &ip->octets[3]);
   return ip;
 }
+
+int comparer_adresses_mac( Mac addr1, Mac addr2)
+{
+  for (int i = 0; i < 6; i++) {
+    if (addr1.octets[i] != addr2.octets[i]) {
+      return 0; // Les adresses MAC sont différentes
+    }
+  }
+  return 1; // Les adresses MAC sont identiques
+
+}
