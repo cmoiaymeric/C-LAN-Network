@@ -1,5 +1,6 @@
 #include "machine.h"
 #include "connexion.h"
+#include <stdint.h>
 
 #ifndef RESEAU_H
 #define RESEAU_H
@@ -13,7 +14,7 @@ typedef struct Reseau {
   uint16_t connexions_capacite; // Capacité du tableau de connexions
 } Reseau;
 
-void init_reseau(Reseau* reseau);
+void init_reseau(Reseau* reseau, uint16_t capacite_reseau);
 void deinit_reseau(Reseau* reseau);
 uint16_t nb_machines(Reseau* reseau);
 uint16_t nb_connexions(Reseau* reseau);
