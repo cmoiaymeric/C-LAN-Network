@@ -37,6 +37,8 @@ void deinit_machine(Machine *machine) {
     free(((Switch*)machine->machine));
     machine->machine = NULL;
   }
+  free(machine);
+  machine = NULL;
 }
 
 

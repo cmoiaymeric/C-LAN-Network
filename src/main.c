@@ -15,8 +15,11 @@ int main(int argc, char* argv[]) {
     exit(-1);
   }
   char* file = argv[0];
-  char* fileString = NULL;
-  read_config_file(file, fileString);
+
+  Reseau* reseau = malloc(sizeof(Reseau));
+  init_reseau(reseau);
+  
+  read_config_file(file,reseau);
   printf("Le fichier a été traité avec succès\n");
   exit(0);
 }
