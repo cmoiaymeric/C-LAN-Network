@@ -1,17 +1,20 @@
 #include "reseau.h"
 #include "machine.h"
 #include "connexion.h"
+#include <stdlib.h>
 
-void init_reseau(Reseau* reseau, uint16_t capacite_reseau) {
-    reseau->nb_machines = 0;
+void init_reseau(Reseau* reseau) {
+    reseau->nb_machines = 0;    // Pas de machines par défaut
 
-    reseau->machines = malloc(sizeof(Machine) * 8); // Initialisation avec une capacité de 8 machines
+    reseau->machines_capacite = 8;  // Initialisation avec une capacité de 8 machines
+
+    reseau->machines = malloc(sizeof(Machine) * reseau->machines_capacite);     // Initialisation du tableau de machines
 
     reseau->connexions_capacite = 8; // Capacité initiale pour les connexions
 
-    reseau->connexions = malloc(sizeof(Connexion) * reseau->connexions_capacite);
+    reseau->connexions = malloc(sizeof(Connexion) * reseau->connexions_capacite);   // Initialisation du tableau des connections entre machines
 
-    reseau->nb_connexions = 0;
+    reseau->nb_connexions = 0;  // Pas de connections par défaut
 }
 
 void deinit_reseau(Reseau* reseau) {
@@ -54,11 +57,22 @@ int existe_connexion(Reseau* reseau, Connexion connexion) {
     return 0;
 }
 
-// Fonction faites par Copilot, regarder par ici en cas d'erreur
+
 void ajouter_machine(Reseau* reseau, Machine machine) {
-    if (reseau->nb_machines >= 8) {
-        // Redimensionner le tableau si nécessaire
-        reseau->machines = realloc(reseau->machines, sizeof(Machine) * (reseau->nb_machines + 8));
+    if (reseau->nb_machines >= reseau->machines_capacite ) {    // Si on est arrivé à la capacité max de machines
+        reseau->machines_capacite *= 2;     // On double la capacité max de machines
+        reseau->machines = realloc(reseau->machines, sizeof(Machine) * (reseau->machines_capacite));    // On réalloue le tableau en plus grand
     }
-    reseau->machines[reseau->nb_machines++] = machine;
+    reseau->machines++;
+    reseau->machines[reseau->nb_machines] = machine;
+}
+
+
+void ajouter_connection(Reseau* reseau, Connexion connexion) {
+    if (reseau->nb_connexions >= reseau->connexions_capacite) {     // Si on est arrivé à la capacité max de connections
+        reseau->connexions_capacite *= 2;       // On double la capacité max de connections
+        reseau->connexions = realloc(reseau->connexions, sizeof(Connexion) * reseau->connexions_capacite);  // On réalloue le tableau en plus grand
+    }
+    reseau->nb_connexions++;
+    reseau->connexions[reseau->nb_connexions] = connexion;
 }
