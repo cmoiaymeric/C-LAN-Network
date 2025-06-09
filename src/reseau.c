@@ -1,6 +1,8 @@
 #include "reseau.h"
 #include "machine.h"
 #include "connexion.h"
+#include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 void init_reseau(Reseau* reseau) {
@@ -63,20 +65,37 @@ int existe_connexion(Reseau* reseau, Connexion connexion) {
 
 
 void ajouter_machine(Reseau* reseau, Machine machine) {
-    reseau->nb_machines++;
     if (reseau->nb_machines >= reseau->machines_capacite ) {    // Si on est arrivé à la capacité max de machines
         reseau->machines_capacite *= 2;     // On double la capacité max de machines
         reseau->machines = realloc(reseau->machines, sizeof(Machine) * (reseau->machines_capacite));    // On réalloue le tableau en plus grand
     }
     reseau->machines[reseau->nb_machines] = machine;
+    reseau->nb_machines++;
 }
 
 
 void ajouter_connection(Reseau* reseau, Connexion connexion) {
-    reseau->nb_connexions++;
     if (reseau->nb_connexions >= reseau->connexions_capacite) {     // Si on est arrivé à la capacité max de connections
         reseau->connexions_capacite *= 2;       // On double la capacité max de connections
         reseau->connexions = realloc(reseau->connexions, sizeof(Connexion) * reseau->connexions_capacite);  // On réalloue le tableau en plus grand
     }
     reseau->connexions[reseau->nb_connexions] = connexion;
+    reseau->nb_connexions++;
+}
+
+
+void afficher_reseau(Reseau *reseau) {
+    printf("*** Affichage du réseau ***\nMachines : ");
+    for (uint16_t i=0; i< reseau->nb_machines; i++) {
+        printf("\n=====================================================================================\n[%u] ",i);
+        afficher_machine(reseau->machines[i]);
+    }
+    printf("\n=====================================================================================\n");
+
+    for (uint16_t i=0; i< reseau->nb_connexions; i++) {
+        printf("[%u] ",i);
+        afficher_connexion(reseau->connexions[i]);
+        printf("==========================================\n");
+    }
+
 }

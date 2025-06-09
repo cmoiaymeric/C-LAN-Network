@@ -42,23 +42,23 @@ void deinit_machine(Machine *machine) {
 }
 
 
-void afficher_machine(Machine *machine) {
+void afficher_machine(Machine machine) {
   char* macString = NULL;
   macString = malloc(sizeof(char)*18);
   char* ipString = NULL;
   ipString = malloc(sizeof(char)*16);
 
-  if (machine->type_machine == TypeStation) 
+  if (machine.type_machine == TypeStation) 
   {
     printf("Type de machine : Station  ");
-    printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine->machine)->adresse_mac, macString));
-    printf("Adresse IP : %s   ",ip_to_string(((Station*)machine->machine)->adresse_ip, ipString));
+    printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine.machine)->adresse_mac, macString));
+    printf("Adresse IP : %s   ",ip_to_string(((Station*)machine.machine)->adresse_ip, ipString));
   }
-  else if (machine->type_machine == TypeSwitch) 
+  else if (machine.type_machine == TypeSwitch) 
   {
     printf("Type de machine : Switch   ");
-    printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine->machine)->adresse_mac, macString));
-    printf("Priorité : %u   ",((Switch*)machine->machine)->priorite);
+    printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine.machine)->adresse_mac, macString));
+    printf("Priorité : %u   ",((Switch*)machine.machine)->priorite);
   }
   else 
   {

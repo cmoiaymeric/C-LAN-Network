@@ -11,3 +11,5 @@ typedef struct Connexion {
     machine_t machine_2; // Sommet 2
     uint8_t poids; // Poids de la connexion
 } Connexion;
+
+void afficher_connexion(Connexion connexion);

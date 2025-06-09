@@ -76,7 +76,7 @@ void read_config_file(char* file_name, Reseau* reseau) {
         ajouter_machine(reseau, *machine);
 
         printf("=====================================================================================\n");
-        afficher_machine(machine);
+        afficher_machine(*machine);
         printf("\n");
     }
 

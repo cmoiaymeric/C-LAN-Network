@@ -22,5 +22,6 @@ uint16_t nb_connexions(Reseau* reseau);
 uint16_t index_machine(Reseau* reseau, machine_t machine);
 void ajouter_machine(Reseau* reseau, Machine machine);
 void ajouter_connection(Reseau* reseau, Connexion connexion);
+void afficher_reseau(Reseau* reseau);
 
 #endif
