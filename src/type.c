@@ -54,12 +54,3 @@ int comparer_adresses_mac( Mac addr1, Mac addr2)
   }
   return 1; // Les adresses MAC sont identiques
 }
-int comparer_mac_machine(Machine machine, Mac adresse_mac) {
-  if (machine.type_machine == TypeStation) {
-    Station* station = (Station*) machine.machine;
-    return comparer_adresses_mac(station->adresse_mac, adresse_mac);
-  } else if (machine.type_machine == TypeSwitch) {
-    Switch* switch_machine = (Switch*) machine.machine;
-    return comparer_adresses_mac(switch_machine->adresse_mac, adresse_mac);
-  }
-}
