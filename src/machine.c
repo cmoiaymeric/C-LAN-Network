@@ -28,17 +28,17 @@ void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t p
 
 }
 
-void deinit_machine(Machine *machine) {
-  if (machine->type_machine == TypeStation) {
-    free(((Station*)machine->machine));
-    machine->machine = NULL;
+void deinit_machine(Machine **machine) {
+  if ((*machine)->type_machine == TypeStation) {
+    free(((Station*)(*machine)->machine));
+    (*machine)->machine = NULL;
   }
-  else if (machine->type_machine == TypeSwitch) {
-    free(((Switch*)machine->machine));
-    machine->machine = NULL;
+  else if ((*machine)->type_machine == TypeSwitch) {
+    free(((Switch*)(*machine)->machine));
+    (*machine)->machine = NULL;
   }
-  free(machine);
-  machine = NULL;
+  free(*machine);
+  *machine = NULL; 
 }
 
 
