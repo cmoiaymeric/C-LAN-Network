@@ -1,6 +1,8 @@
 #include "type.h"
-
+#include "machine.h"
 #include <stdio.h>
+#include <stdlib.h>
+
 
 char * mac_to_string(Mac adresse_mac, char * mac_string) {
 
@@ -51,5 +53,4 @@ int comparer_adresses_mac( Mac addr1, Mac addr2)
     }
   }
   return 1; // Les adresses MAC sont identiques
-
 }

@@ -56,7 +56,6 @@ void read_config_file(char* file_name, Reseau* reseau) {
             exit(-1);
         }
 
-        // FIX: Allocate memory for machine
         Machine* machine = malloc(sizeof(Machine));
 
         sscanf(file_string, "%hhd", &type_machine);
@@ -79,8 +78,6 @@ void read_config_file(char* file_name, Reseau* reseau) {
         printf("=====================================================================================\n");
         afficher_machine(*machine);
         printf("\n");
-        
-        // FIX: Free the machine pointer after adding to reseau
         free(machine);
     }
 
@@ -105,7 +102,6 @@ void read_config_file(char* file_name, Reseau* reseau) {
     fclose(input_file);
 
     // Libération de la mémoire
-    
     free(file_string);
     file_string = NULL;
     free(adresse_mac);
@@ -113,3 +109,4 @@ void read_config_file(char* file_name, Reseau* reseau) {
     free(adresse_ip);
     adresse_ip = NULL;
 }
+

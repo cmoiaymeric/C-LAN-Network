@@ -40,5 +40,6 @@ void init_switch(Machine* machine, Mac adresse_mac, uint8_t nbPorts, uint16_t pr
 void deinit_machine(Machine** machine);
 
 void afficher_machine(Machine machine);
+int comparer_mac_machine(Machine machine, Mac adresse_mac);
 
 #endif
