@@ -74,14 +74,8 @@ void read_config_file(char* file_name, Reseau* reseau) {
         }
 
         ajouter_machine(reseau, *machine);
-
-        printf("=====================================================================================\n");
-        afficher_machine(*machine);
-        printf("\n");
         free(machine);
     }
-
-    printf("=====================================================================================\n");
 
     for(uint8_t i = 0; i < nb_aretes; i++) {
         fgets(file_string, MAX_STR_LENGTH, input_file);
@@ -91,9 +85,6 @@ void read_config_file(char* file_name, Reseau* reseau) {
             exit(-1);
         }
         sscanf(file_string, "%hd;%hd;%hd", &s1, &s2, &poids);
-        printf("Arete : s1 : %d\t| s2 : %d\t", s1, s2);
-        printf("Poids : %d\n", poids);
-        printf("=========================================\n");
 
         ajouter_connection(reseau, (Connexion){s1,s2,poids});
         
