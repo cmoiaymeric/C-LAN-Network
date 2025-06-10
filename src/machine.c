@@ -5,13 +5,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+Mac get_mac(Machine machine) {
+  if (machine.type_machine == TypeStation) {
+    return ((Station*)machine.machine)->adresse_mac;
+  } else {
+    return ((Switch*)machine.machine)->adresse_mac;
+  }
+}
+
 void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip) {
   machine->type_machine = TypeStation;
 
   Station* station = malloc(sizeof(Station));
   station->adresse_ip = adresse_ip;
   station->adresse_mac = adresse_mac;
-  station->voisin = -1;
+  station->voisin = malloc(sizeof(Machine));
 
   machine->machine = station;
 }
@@ -24,8 +32,9 @@ void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t p
   siwtch->adresse_mac = adresse_mac;
   siwtch->nb_ports = nb_ports;
   siwtch->priorite = priorite;
+  siwtch->voisins = malloc(sizeof(Machine)*nb_ports);
   for (size_t i=0; i<nb_ports; i++) {
-    siwtch->voisins[i] = -1;
+    (siwtch->voisins + i) = NULL;
   }
   
   machine->machine = siwtch;
