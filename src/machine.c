@@ -11,6 +11,7 @@ void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip) {
   Station* station = malloc(sizeof(Station));
   station->adresse_ip = adresse_ip;
   station->adresse_mac = adresse_mac;
+  station->voisin = -1;
 
   machine->machine = station;
 }
@@ -23,6 +24,9 @@ void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t p
   siwtch->adresse_mac = adresse_mac;
   siwtch->nb_ports = nb_ports;
   siwtch->priorite = priorite;
+  for (size_t i=0; i<nb_ports; i++) {
+    siwtch->voisins[i] = -1;
+  }
   
   machine->machine = siwtch;
 
@@ -53,12 +57,17 @@ void afficher_machine(Machine machine) {
     printf("Type de machine : Station  ");
     printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine.machine)->adresse_mac, macString));
     printf("Adresse IP : %s   ",ip_to_string(((Station*)machine.machine)->adresse_ip, ipString));
+	printf("Lien : %u  ",((Station*)machine.machine)->voisin);
   }
   else if (machine.type_machine == TypeSwitch) 
   {
     printf("Type de machine : Switch   ");
     printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine.machine)->adresse_mac, macString));
     printf("Priorité : %u   ",((Switch*)machine.machine)->priorite);
+	printf("Liens :");
+	for (uint16_t i=0; i<((Switch*)machine.machine)->nb_voisins; i++) {
+		printf("  %u",((Switch*)machine.machine)->voisins[i]);
+	}
   }
   else 
   {
@@ -71,3 +80,12 @@ void afficher_machine(Machine machine) {
 }
 
 
+void ajouter_lien(Machine machine1, uint16_t machine2) {
+	if (machine1.type_machine == TypeStation) {
+		((Station*)machine1.machine)->voisin = machine2;
+	}
+	else {
+		((Switch*)machine1.machine)->voisins[((Switch*)machine1.machine)->nb_voisins] = machine2;
+		((Switch*)machine1.machine)->nb_voisins++;
+	}
+}

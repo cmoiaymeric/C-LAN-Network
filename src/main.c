@@ -22,8 +22,8 @@ int main(int argc, char* argv[]) {
   read_config_file(file,reseau);
   printf("Le fichier a été traité avec succès\n");
 
-  printf("\n\n---\n\n");
   afficher_reseau(reseau);
+  deinit_reseau(reseau);
 
   exit(0);
 }
