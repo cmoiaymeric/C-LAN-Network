@@ -5,6 +5,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+void afficher_table_commutation(Machine *machine) {
+	if (machine->type_machine == TypeSwitch) {
+		Switch* sw = ((Switch*)machine->machine);
+		char *macString = malloc(sizeof(char)*18);
+		printf("Table de commutation du switch %s\n",mac_to_string(sw->adresse_mac,macString));
+
+		for (uint16_t i=0; i< sw->table_commutation.nombre; i++) {
+			printf("Mac : %s  -->  Port : %u\n",mac_to_string(sw->table_commutation.entrees[i].destination, macString), sw->table_commutation.entrees[i].port);
+		}
+	}
+}
+
 void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip) {
   machine->type_machine = TypeStation;
 
@@ -75,7 +87,7 @@ int comparer_mac_machine(Machine machine, Mac adresse_mac) {
   if (machine.type_machine == TypeStation) {
     Station* station = (Station*) machine.machine;
     return comparer_adresses_mac(station->adresse_mac, adresse_mac);
-  } else if (machine.type_machine == TypeSwitch) {
+  } else {
     Switch* switch_machine = (Switch*) machine.machine;
     return comparer_adresses_mac(switch_machine->adresse_mac, adresse_mac);
   }

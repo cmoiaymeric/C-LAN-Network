@@ -4,24 +4,29 @@
 #ifndef MACHINE_H
 #define MACHINE_H
 
+typedef struct Commutation {
+  uint8_t port;
+  Mac destination;
+} Commutation;
+
+typedef struct TableCommutation {
+  Commutation* entrees;
+  uint16_t nombre;
+  uint16_t capacite;
+} TableCommutation;
 
 typedef struct Station {
   Mac adresse_mac;
   IP adresse_ip;
   Mac voisin;
 } Station;
-
-typedef struct Commutation {
-  uint8_t port;
-  Mac destination;
-} Commutation;
  
 typedef struct Switch
 {
   Mac adresse_mac;
   uint8_t nb_ports;
   uint16_t priorite;
-  Commutation* commutations;
+  TableCommutation table_commutation;
 } Switch;
 
 typedef enum TypeMachine {
@@ -33,6 +38,8 @@ typedef struct Machine {
   TypeMachine type_machine;
   void* machine;
 } Machine;
+
+void afficher_table_commutation(Machine* machine);
 
 void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip);
 void init_switch(Machine* machine, Mac adresse_mac, uint8_t nbPorts, uint16_t priorite);
