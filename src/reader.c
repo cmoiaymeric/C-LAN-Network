@@ -56,7 +56,7 @@ void read_config_file(char* file_name, Reseau* reseau) {
             exit(-1);
         }
 
-        Machine* machine = malloc(sizeof(Machine));
+        Machine machine;
 
         sscanf(file_string, "%hhd", &type_machine);
 
@@ -64,16 +64,16 @@ void read_config_file(char* file_name, Reseau* reseau) {
 
             sscanf(file_string, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &type_machine, &adresse_mac->octets[0], &adresse_mac->octets[1], &adresse_mac->octets[2], &adresse_mac->octets[3], &adresse_mac->octets[4], &adresse_mac->octets[5], &ports, &priorite);
             
-            init_switch(machine, *adresse_mac, ports, priorite);
+            init_switch(&machine, *adresse_mac, ports, priorite);
         }
         else{
 
             sscanf(file_string, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &type_machine, &adresse_mac->octets[0], &adresse_mac->octets[1], &adresse_mac->octets[2], &adresse_mac->octets[3], &adresse_mac->octets[4], &adresse_mac->octets[5], &adresse_ip->octets[0], &adresse_ip->octets[1], &adresse_ip->octets[2], &adresse_ip->octets[3]);
            
-            init_station(machine, *adresse_mac, *adresse_ip);
+            init_station(&machine, *adresse_mac, *adresse_ip);
         }
 
-        ajouter_machine(reseau, *machine);
+        ajouter_machine(reseau, machine);
     }
 
     for(uint8_t i = 0; i < nb_aretes; i++) {
@@ -98,7 +98,5 @@ void read_config_file(char* file_name, Reseau* reseau) {
     adresse_mac = NULL;
     free(adresse_ip);
     adresse_ip = NULL;
-    free(input_file);
-    input_file = NULL;
 }
 
