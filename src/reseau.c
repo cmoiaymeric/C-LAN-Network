@@ -21,20 +21,24 @@ void init_reseau(Reseau* reseau) {
 }
 
 void deinit_reseau(Reseau* reseau) {
-    reseau->nb_machines = 0;
-
+    for(uint16_t i = 0; i < reseau->nb_machines; i++) {
+        if (reseau->machines[i].type_machine == TypeStation) {
+            free((Station*)reseau->machines[i].machine);
+        }
+        else if (reseau->machines[i].type_machine == TypeSwitch) {
+            free((Switch*)reseau->machines[i].machine);
+        }
+    }
+    
     free(reseau->machines);
-    reseau->machines = NULL;
-
-    reseau->nb_connexions = 0;
     free(reseau->connexions);
-
+    
+    reseau->machines = NULL;
     reseau->connexions = NULL;
-
+    reseau->nb_machines = 0;
+    reseau->nb_connexions = 0;
+    reseau->machines_capacite = 0;
     reseau->connexions_capacite = 0;
-
-    free(reseau);
-    reseau = NULL;
 }
 
 uint16_t nb_machines(Reseau* reseau) {
@@ -47,10 +51,10 @@ uint16_t nb_connexions(Reseau* reseau) {
 
 uint16_t index_machine(Reseau* reseau, machine_t machine) {
     
-    if(machine <= reseau->nb_machines){
+    if(machine < reseau->nb_machines){ 
         return machine;
     }
-    return -1;
+    return UINT16_MAX;
 }
 
 // Retourne 1 si la connexion existe, 0 sinon

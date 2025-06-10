@@ -56,7 +56,7 @@ void read_config_file(char* file_name, Reseau* reseau) {
             exit(-1);
         }
 
-        Machine machine;
+        Machine* machine = malloc(sizeof(Machine));
 
         sscanf(file_string, "%hhd", &type_machine);
 
@@ -64,17 +64,24 @@ void read_config_file(char* file_name, Reseau* reseau) {
 
             sscanf(file_string, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &type_machine, &adresse_mac->octets[0], &adresse_mac->octets[1], &adresse_mac->octets[2], &adresse_mac->octets[3], &adresse_mac->octets[4], &adresse_mac->octets[5], &ports, &priorite);
             
-            init_switch(&machine, *adresse_mac, ports, priorite);
+            init_switch(machine, *adresse_mac, ports, priorite);
         }
         else{
 
             sscanf(file_string, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &type_machine, &adresse_mac->octets[0], &adresse_mac->octets[1], &adresse_mac->octets[2], &adresse_mac->octets[3], &adresse_mac->octets[4], &adresse_mac->octets[5], &adresse_ip->octets[0], &adresse_ip->octets[1], &adresse_ip->octets[2], &adresse_ip->octets[3]);
            
-            init_station(&machine, *adresse_mac, *adresse_ip);
+            init_station(machine, *adresse_mac, *adresse_ip);
         }
 
-        ajouter_machine(reseau, machine);
+        ajouter_machine(reseau, *machine);
+
+        printf("=====================================================================================\n");
+        afficher_machine(*machine);
+        printf("\n");
+        free(machine);
     }
+
+    printf("=====================================================================================\n");
 
     for(uint8_t i = 0; i < nb_aretes; i++) {
         fgets(file_string, MAX_STR_LENGTH, input_file);
@@ -84,6 +91,9 @@ void read_config_file(char* file_name, Reseau* reseau) {
             exit(-1);
         }
         sscanf(file_string, "%hd;%hd;%hd", &s1, &s2, &poids);
+        printf("Arete : s1 : %d\t| s2 : %d\t", s1, s2);
+        printf("Poids : %d\n", poids);
+        printf("=========================================\n");
 
         ajouter_connection(reseau, (Connexion){s1,s2,poids});
         

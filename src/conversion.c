@@ -6,7 +6,7 @@ int puissance(int base, int puissance)
     {
         return 1;
     }
-    return base * puissance * (base, puissance - 1);    
+    return base * puissance(base, puissance - 1);  
 }
 
 void decimal_to_binaire(unsigned long nombre, char* buffer) 

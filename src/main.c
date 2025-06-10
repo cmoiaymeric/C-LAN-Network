@@ -23,6 +23,7 @@ int main(int argc, char* argv[]) {
   printf("\n\n---\n\n");
   afficher_reseau(reseau);
   deinit_reseau(reseau);
-
+  free(reseau);
+  reseau = NULL;
   exit(0);
 }
