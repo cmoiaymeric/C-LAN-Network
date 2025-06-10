@@ -66,7 +66,7 @@ void afficher_machine(Machine machine) {
     printf("Type de machine : Station  ");
     printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine.machine)->adresse_mac, macString));
     printf("Adresse IP : %s   ",ip_to_string(((Station*)machine.machine)->adresse_ip, ipString));
-	printf("Lien : %u  ",((Station*)machine.machine)->voisin);
+	  printf("Lien : %u  ",((Station*)machine.machine)->voisin);
   }
   else if (machine.type_machine == TypeSwitch) 
   {
