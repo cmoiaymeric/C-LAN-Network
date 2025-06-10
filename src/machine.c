@@ -25,20 +25,19 @@ void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t p
   siwtch->priorite = priorite;
   
   machine->machine = siwtch;
-
 }
 
 void deinit_machine(Machine **machine) {
-  if ((*machine)->type_machine == TypeStation) {
-    free(((Station*)(*machine)->machine));
+  if (*machine == NULL) return; 
+    
+    if ((*machine)->type_machine == TypeStation) {
+        free(((Station*)(*machine)->machine));
+    }
+    else if ((*machine)->type_machine == TypeSwitch) {
+        free(((Switch*)(*machine)->machine));
+    }
+    
     (*machine)->machine = NULL;
-  }
-  else if ((*machine)->type_machine == TypeSwitch) {
-    free(((Switch*)(*machine)->machine));
-    (*machine)->machine = NULL;
-  }
-  free(*machine);
-  *machine = NULL; 
 }
 
 
@@ -69,5 +68,3 @@ void afficher_machine(Machine machine) {
   free(ipString);
   ipString = NULL;
 }
-
-
