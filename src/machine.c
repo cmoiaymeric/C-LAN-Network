@@ -5,11 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-Mac get_mac(Machine machine) {
-  if (machine.type_machine == TypeStation) {
-    return ((Station*)machine.machine)->adresse_mac;
+Mac get_mac(Machine* machine) {
+  if (machine->type_machine == TypeStation) {
+    return ((Station*)machine->machine)->adresse_mac;
   } else {
-    return ((Switch*)machine.machine)->adresse_mac;
+    return ((Switch*)machine->machine)->adresse_mac;
   }
 }
 
@@ -32,9 +32,9 @@ void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t p
   siwtch->adresse_mac = adresse_mac;
   siwtch->nb_ports = nb_ports;
   siwtch->priorite = priorite;
-  siwtch->voisins = malloc(sizeof(Machine)*nb_ports);
+  siwtch->voisins = malloc(sizeof(Machine*)*nb_ports);
   for (size_t i=0; i<nb_ports; i++) {
-    (siwtch->voisins + i) = NULL;
+    *(siwtch->voisins + i) = NULL;
   }
   
   machine->machine = siwtch;
@@ -55,27 +55,27 @@ void deinit_machine(Machine **machine) {
 }
 
 
-void afficher_machine(Machine machine) {
+void afficher_machine(Machine* machine) {
   char* macString = NULL;
   macString = malloc(sizeof(char)*18);
   char* ipString = NULL;
   ipString = malloc(sizeof(char)*16);
 
-  if (machine.type_machine == TypeStation) 
+  if (machine->type_machine == TypeStation) 
   {
     printf("Type de machine : Station  ");
-    printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine.machine)->adresse_mac, macString));
-    printf("Adresse IP : %s   ",ip_to_string(((Station*)machine.machine)->adresse_ip, ipString));
-	  printf("Lien : %u  ",((Station*)machine.machine)->voisin);
+    printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine->machine)->adresse_mac, macString));
+    printf("Adresse IP : %s   ",ip_to_string(((Station*)machine->machine)->adresse_ip, ipString));
+	  printf("Lien : %s  ",mac_to_string(get_mac(((Station*)machine->machine)->voisin), macString));
   }
-  else if (machine.type_machine == TypeSwitch) 
+  else if (machine->type_machine == TypeSwitch) 
   {
     printf("Type de machine : Switch   ");
-    printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine.machine)->adresse_mac, macString));
-    printf("Priorité : %u   ",((Switch*)machine.machine)->priorite);
-	printf("Liens :");
-	for (uint16_t i=0; i<((Switch*)machine.machine)->nb_voisins; i++) {
-		printf("  %u",((Switch*)machine.machine)->voisins[i]);
+    printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine->machine)->adresse_mac, macString));
+    printf("Priorité : %u   ",((Switch*)machine->machine)->priorite);
+	  printf("Liens :");
+	for (uint16_t i=0; i<((Switch*)machine->machine)->nb_voisins; i++) {
+		printf("  %s",mac_to_string(get_mac(((Switch*)machine->machine)->voisins[i]), macString));
 	}
   }
   else 
@@ -89,12 +89,12 @@ void afficher_machine(Machine machine) {
 }
 
 
-void ajouter_lien(Machine machine1, uint16_t machine2) {
-	if (machine1.type_machine == TypeStation) {
-		((Station*)machine1.machine)->voisin = machine2;
+void ajouter_lien(Machine* machine1, Machine* machine2) {
+	if (machine1->type_machine == TypeStation) {
+		((Station*)machine1->machine)->voisin = machine2;
 	}
 	else {
-		((Switch*)machine1.machine)->voisins[((Switch*)machine1.machine)->nb_voisins] = machine2;
-		((Switch*)machine1.machine)->nb_voisins++;
+		((Switch*)machine1->machine)->voisins[((Switch*)machine1->machine)->nb_voisins] = machine2;
+		((Switch*)machine1->machine)->nb_voisins++;
 	}
 }

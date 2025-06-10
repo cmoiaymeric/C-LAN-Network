@@ -82,8 +82,8 @@ void ajouter_connection(Reseau* reseau, Connexion connexion) {
     reseau->connexions[reseau->nb_connexions] = connexion;
     reseau->nb_connexions++;
 
-    ajouter_lien(reseau->machines[connexion.machine_1], connexion.machine_2);
-    ajouter_lien(reseau->machines[connexion.machine_2], connexion.machine_1);
+    ajouter_lien(&reseau->machines[connexion.machine_1], &reseau->machines[connexion.machine_2]);
+    ajouter_lien(&reseau->machines[connexion.machine_2], &reseau->machines[connexion.machine_1]);
 }
 
 
@@ -91,7 +91,7 @@ void afficher_reseau(Reseau *reseau) {
     printf("*** Affichage du réseau ***\nMachines : ");
     for (uint16_t i=0; i< reseau->nb_machines; i++) {
         printf("\n===========================================================================================\n[%u] ",i);
-        afficher_machine(reseau->machines[i]);
+        afficher_machine(&reseau->machines[i]);
     }
     printf("\n===========================================================================================\n");
 
