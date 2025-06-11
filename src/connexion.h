@@ -9,7 +9,7 @@ typedef uint16_t machine_t;
 typedef struct Connexion {
     machine_t machine_1; // Sommet 1
     machine_t machine_2; // Sommet 2
-    uint8_t poids; // Poids de la connexion
+    uint8_t poids; // Poids de la connexion : (0 à 255)
 } Connexion;
 
 void afficher_connexion(Connexion connexion);
