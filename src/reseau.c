@@ -203,25 +203,33 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t transporteur, machin
         printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[transporteur]),macString), trame.data);
         continuer=false;
     }
-    else if (trame.TTL < 0) {
+    else if (trame.TTL <= 0) {
         printf("%s : Le TTL de la trame est de 0, je détruit\n", mac_to_string(get_mac(reseau->machines[transporteur]), macString));
         continuer=false;
     }
     else {
         printf("%s : Je fais passer une trame\n",mac_to_string(get_mac(reseau->machines[transporteur]), macString));
+        if (ancien != UINT16_MAX)
+            ajouter_commutation(&reseau->machines[transporteur], trame.addrSource, ancien);
     }
     free(macString);
     if (!continuer) return;
 
-    uint16_t deg = degre_machine(reseau, transporteur);
-    machine_t connectees[deg];
-    machines_connectees(reseau, transporteur, connectees);
-
-    for (uint16_t i=0; i<deg; i++) {
-        if (connectees[i] != ancien)
-            transfert_trame(reseau, trame, connectees[i], transporteur);
+    uint16_t index_commutation = get_index_commutation(&reseau->machines[transporteur], trame.addrDestination);
+    if (index_commutation != UINT16_MAX) {
+        transfert_trame(reseau, trame, index_commutation, transporteur);
+    }
+    else {
+        uint16_t deg = degre_machine(reseau, transporteur);
+        machine_t connectees[deg];
+        machines_connectees(reseau, transporteur, connectees);
+        for (uint16_t i=0; i<deg; i++) {
+            if (connectees[i] != ancien)
+                transfert_trame(reseau, trame, connectees[i], transporteur);
+        }
     }
 }
+
 
 void envoyer_trame(Reseau *reseau, Trame trame) {
     char* macString = malloc(18);
@@ -229,5 +237,5 @@ void envoyer_trame(Reseau *reseau, Trame trame) {
     free(macString);
 
     machine_t transporteur = get_machine_par_mac(reseau, trame.addrSource);
-    transfert_trame(reseau, trame, transporteur, NULL);
+    transfert_trame(reseau, trame, transporteur, UINT16_MAX);
 }

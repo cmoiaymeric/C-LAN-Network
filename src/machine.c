@@ -1,6 +1,7 @@
 #include "machine.h"
 #include "type.h"
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -65,6 +66,9 @@ void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t p
   siwtch->adresse_mac = adresse_mac;
   siwtch->nb_ports = nb_ports;
   siwtch->priorite = priorite;
+  siwtch->table_commutation.capacite = 8;
+  siwtch->table_commutation.nombre = 0;
+  siwtch->table_commutation.entrees = malloc(sizeof(Commutation) * siwtch->table_commutation.capacite);
   
   machine->machine = siwtch;
 }
@@ -81,6 +85,7 @@ void deinit_machine(Machine **machine) {
         free(((Station*)(*machine)->machine));
     }
     else if ((*machine)->type_machine == TypeSwitch) {
+        free(((Switch*)(*machine)->machine)->table_commutation.entrees);
         free(((Switch*)(*machine)->machine));
     }
     
@@ -144,3 +149,35 @@ Mac get_mac(Machine machine) {
     return ((Switch*)machine.machine)->adresse_mac;
   }
 }
+
+uint16_t get_index_commutation(Machine* machine, Mac mac) {
+  if (machine->type_machine == TypeSwitch) {
+    Switch* sw = (Switch*)machine->machine;
+    for (uint16_t i=0; i<sw->table_commutation.nombre; i++) {
+      if (comparer_adresses_mac(sw->table_commutation.entrees[i].destination, mac)) {
+        return i;
+      }
+    }
+  }
+  return UINT16_MAX;
+}
+
+void ajouter_commutation(Machine *machine, Mac mac, machine_t voisin) {
+  if (machine->type_machine == TypeSwitch) {
+    Switch* sw = (Switch*)machine->machine;
+
+    uint16_t index_table = get_index_commutation(machine, mac);
+    if ( index_table != UINT16_MAX) {
+      sw->table_commutation.entrees[index_table].port = voisin;
+    }
+    else {
+      if (sw->table_commutation.nombre >= sw->table_commutation.capacite) {
+        sw->table_commutation.capacite*=2;
+        sw->table_commutation.entrees = realloc(sw->table_commutation.entrees, sizeof(Commutation) * sw->table_commutation.capacite);
+      }
+      sw->table_commutation.entrees[sw->table_commutation.nombre] = (Commutation){voisin, mac};
+      sw->table_commutation.nombre++;
+    }
+  }
+}
+

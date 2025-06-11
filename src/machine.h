@@ -1,3 +1,4 @@
+#include "connexion.h"
 #include "type.h"
 #include <stddef.h>
 
@@ -6,7 +7,7 @@
 
 // Représente une entrée de la table de commutation d'un switch
 typedef struct Commutation {
-  uint8_t port; // Numéro du port associé
+  machine_t port; // Numéro du port associé
   Mac destination; // Adresse MAC destination correspondante
 } Commutation;
 
@@ -21,7 +22,6 @@ typedef struct TableCommutation {
 typedef struct Station {
   Mac adresse_mac; // mac de la station
   IP adresse_ip; // IP
-  Mac voisin; // mac du voisin
 } Station;
  
 // Représente un switch 
@@ -55,5 +55,8 @@ void deinit_machine(Machine** machine);
 void afficher_machine(Machine machine);
 int comparer_mac_machine(Machine machine, Mac adresse_mac);
 Mac get_mac(Machine machine);
+
+uint16_t get_index_commutation(Machine* machine, Mac mac);
+void ajouter_commutation(Machine* machine, Mac mac, machine_t voisin);
 
 #endif

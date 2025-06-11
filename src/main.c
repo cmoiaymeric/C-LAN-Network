@@ -31,6 +31,12 @@ int main(int argc, char* argv[]) {
   init_trame(&t, &mac1, &mac2, 1, "blabla");
   envoyer_trame(reseau, t);
 
+  Trame t2;
+  init_trame(&t2, &mac2, &mac1, 1, "blublubluuuu");
+  envoyer_trame(reseau, t2);
+
+  afficher_table_commutation(&reseau->machines[2]);
+
 
   deinit_reseau(reseau);
   free(reseau);
