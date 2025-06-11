@@ -5,6 +5,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * @brief Affiche la table de commutation d'un switch.
+ * 
+ * Vérifie que la machine est bien un switch, puis affiche
+ * toutes les entrées (adresse MAC et port) de sa table de commutation.
+ * 
+ * @param machine Pointeur vers la machine (switch)
+ */
 void afficher_table_commutation(Machine *machine) {
 	if (machine->type_machine == TypeSwitch) {
 		Switch* sw = ((Switch*)machine->machine);
@@ -17,6 +25,16 @@ void afficher_table_commutation(Machine *machine) {
 	}
 }
 
+/**
+ * @brief Initialise une machine de type station.
+ * 
+ * Alloue dynamiquement une structure Station, initialise
+ * ses adresses MAC et IP, et l'assigne à la machine.
+ * 
+ * @param machine Pointeur vers la machine à initialiser
+ * @param adresse_mac Adresse MAC de la station
+ * @param adresse_ip Adresse IP de la station
+ */
 void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip) {
   machine->type_machine = TypeStation;
 
@@ -27,6 +45,18 @@ void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip) {
   machine->machine = station;
 }
 
+/**
+ * @brief Initialise une machine de type switch.
+ * 
+ * Alloue dynamiquement une structure Switch, initialise
+ * ses adresses MAC, nombre de ports, et priorité, puis
+ * l'assigne à la machine.
+ * 
+ * @param machine Pointeur vers la machine à initialiser
+ * @param adresse_mac Adresse MAC du switch
+ * @param nb_ports Nombre de ports du switch
+ * @param priorite Priorité du switch
+ */
 void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t priorite) {
   machine->type_machine = TypeSwitch;
 
@@ -39,6 +69,11 @@ void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t p
   machine->machine = siwtch;
 }
 
+/**
+ * @brief Libère la mémoire associée à une machine (station ou switch).
+ * 
+ * @param machine Pointeur vers le pointeur de machine à désinitialiser
+ */
 void deinit_machine(Machine **machine) {
   if (*machine == NULL) return; 
     
@@ -53,6 +88,14 @@ void deinit_machine(Machine **machine) {
 }
 
 
+/**
+ * @brief Affiche les informations d'une machine (station ou switch).
+ * 
+ * Affiche le type, l'adresse MAC, et selon le type,
+ * l'adresse IP (station) ou la priorité (switch).
+ * 
+ * @param machine La machine à afficher
+ */
 void afficher_machine(Machine machine) {
   char* macString = NULL;
   macString = malloc(sizeof(char)*18);
@@ -80,6 +123,14 @@ void afficher_machine(Machine machine) {
   free(ipString);
   ipString = NULL;
 }
+
+/**
+ * @brief Compare l'adresse MAC d'une machine avec une adresse MAC donnée.
+ * 
+ * @param machine La machine à comparer
+ * @param adresse_mac L'adresse MAC à comparer
+ * @return 0 si égales, une valeur différente sinon (selon comparer_adresses_mac)
+ */
 int comparer_mac_machine(Machine machine, Mac adresse_mac) {
   if (machine.type_machine == TypeStation) {
     Station* station = (Station*) machine.machine;
