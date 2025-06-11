@@ -14,6 +14,7 @@
 
 // Fonction pour lire le fichier et afficher les informations
 void read_config_file(char* file_name, Reseau* reseau) {
+
     char * file_string = NULL;
     
     FILE* input_file = fopen(file_name, "r");
@@ -39,17 +40,20 @@ void read_config_file(char* file_name, Reseau* reseau) {
 
     file_string = (char*) malloc(MAX_STR_LENGTH);
     fgets(file_string, MAX_STR_LENGTH, input_file);
+
+    //Traitement d'une erreur de lecture
     if (ferror(input_file)) {
         fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
         exit(-1);
     }
     
-    //On lit la première ligne
+    //On lit la première ligne pour connaitre le nombre de machines et de connexions
     sscanf(file_string, "%hhd %hhd", &nb_sommets, &nb_aretes);
 
     for(uint8_t i = 0; i < nb_sommets; i++) {
 
         fgets(file_string, MAX_STR_LENGTH, input_file);
+        //Traitement d'une erreur de lecture
         if (ferror(input_file)) {
             fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
             break;
@@ -62,23 +66,25 @@ void read_config_file(char* file_name, Reseau* reseau) {
 
         if(type_machine == TypeSwitch){
 
+            //Lit la ligne pour la configuration d'un switch
             sscanf(file_string, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhd;%hd", &type_machine, &adresse_mac->octets[0], &adresse_mac->octets[1], &adresse_mac->octets[2], &adresse_mac->octets[3], &adresse_mac->octets[4], &adresse_mac->octets[5], &ports, &priorite);
             
             init_switch(machine, *adresse_mac, ports, priorite);
         }
         else{
-
+            //Lit la ligne pour la configuration d'une station
             sscanf(file_string, "%hhd;%02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx;%hhu.%hhu.%hhu.%hhu", &type_machine, &adresse_mac->octets[0], &adresse_mac->octets[1], &adresse_mac->octets[2], &adresse_mac->octets[3], &adresse_mac->octets[4], &adresse_mac->octets[5], &adresse_ip->octets[0], &adresse_ip->octets[1], &adresse_ip->octets[2], &adresse_ip->octets[3]);
            
             init_station(machine, *adresse_mac, *adresse_ip);
         }
-
         ajouter_machine(reseau, *machine);
         free(machine);
     }
 
     for(uint8_t i = 0; i < nb_aretes; i++) {
         fgets(file_string, MAX_STR_LENGTH, input_file);
+        
+        //Traitement d'une erreur de lecture
         if (ferror(input_file)) {
             fprintf(stderr,"Erreur de lecture du fichier %d\n", errno);
             break;
