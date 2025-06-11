@@ -17,20 +17,6 @@ typedef struct IP {
     octet octets[4];
 }IP;
 
-typedef enum typeTrame{
-    ICMP,BPDU,ARP,IPv4,IPv6,DHCP
-}typeTrame;
-
-typedef struct Trame{
-    uint8_t preambule[7];
-    uint8_t SFD;
-    Mac addrDestination;
-    Mac addrSource;
-    typeTrame type;
-    char data[1500];
-    uint32_t FCS;
-}Trame;
-
 char * mac_to_string(Mac adresse_mac, char * mac_string);
 char * ip_to_string(IP adresse_ip, char * ip_string);
 
