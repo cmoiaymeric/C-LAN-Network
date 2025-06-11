@@ -1,12 +1,13 @@
 #include "conversion.h"
 
-int puissance(int base, int puissance)
+// a modifier
+int puissance(int base, int exposant)
 {
-    if (puissance == 0) 
+    if (exposant == 0) 
     {
         return 1;
     }
-    return base * puissance(base, puissance - 1);  
+    return base * puissance(base, exposant - 1);
 }
 
 void decimal_to_binaire(unsigned long nombre, char* buffer) 
