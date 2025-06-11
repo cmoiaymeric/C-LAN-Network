@@ -1,6 +1,7 @@
 #include "reader.h"
 #include "machine.h"
 #include "reseau.h"
+#include "trame.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +23,15 @@ int main(int argc, char* argv[]) {
 
   printf("\n\n---\n\n");
   afficher_reseau(reseau);
+
+  Mac mac1 = get_mac(reseau->machines[7]);
+  Mac mac2 = get_mac(reseau->machines[8]);
+
+  Trame t;
+  init_trame(&t, &mac1, &mac2, 1, "blabla");
+  envoyer_trame(reseau, t);
+
+
   deinit_reseau(reseau);
   free(reseau);
   reseau = NULL;

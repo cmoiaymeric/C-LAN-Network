@@ -1,6 +1,7 @@
 #include "reseau.h"
 #include "machine.h"
 #include "connexion.h"
+#include "type.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -146,6 +147,7 @@ void afficher_reseau(Reseau *reseau) {
     for (uint16_t i=0; i< reseau->nb_machines; i++) {
         printf("\n=====================================================================================\n[%u]\t",i);
         afficher_machine(reseau->machines[i]);
+        printf("\tNb liens : %u",degre_machine(reseau, i));     // TEMP
     }
     printf("\n=====================================================================================\n");
 
@@ -157,8 +159,17 @@ void afficher_reseau(Reseau *reseau) {
 
 }
 
-uint16_t degre_machine(Reseau *reseau, uint16_t machine) {
-    uint16_t deg = 0;
+machine_t get_machine_par_mac(Reseau* reseau, Mac mac) {
+    for (machine_t m=0; m<reseau->nb_machines; m++) {
+        if (comparer_mac_machine(reseau->machines[m], mac)) {
+            return m;
+        }
+    }
+    return NULL;
+}
+
+machine_t degre_machine(Reseau *reseau, machine_t machine) {
+    machine_t deg = 0;
     for (uint16_t i=0; i< reseau->nb_connexions; i++) {
         Connexion c = reseau->connexions[i];
         if (c.machine_1 == machine || c.machine_2 == machine) {
@@ -168,7 +179,7 @@ uint16_t degre_machine(Reseau *reseau, uint16_t machine) {
     return deg;
 }
 
-void machines_connectees(Reseau *reseau, uint16_t machine, uint16_t* connectees) {
+void machines_connectees(Reseau *reseau, machine_t machine, machine_t* connectees) {
     uint16_t nb=0;
     for (uint16_t i=0; i< reseau->nb_connexions; i++) {
         Connexion c = reseau->connexions[i];
@@ -184,7 +195,39 @@ void machines_connectees(Reseau *reseau, uint16_t machine, uint16_t* connectees)
 }
 
 
-void envoyer_trame(Reseau *reseau, Trame trame) {
+void transfert_trame(Reseau *reseau, Trame trame, machine_t transporteur, machine_t ancien) {
     trame.TTL--;
+    bool continuer = true;
+    char* macString = malloc(18);
+    if (comparer_mac_machine(reseau->machines[transporteur], trame.addrDestination)) {  
+        printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[transporteur]),macString), trame.data);
+        continuer=false;
+    }
+    else if (trame.TTL < 0) {
+        printf("%s : Le TTL de la trame est de 0, je détruit\n", mac_to_string(get_mac(reseau->machines[transporteur]), macString));
+        continuer=false;
+    }
+    else {
+        printf("%s : Je fais passer une trame\n",mac_to_string(get_mac(reseau->machines[transporteur]), macString));
+    }
+    free(macString);
+    if (!continuer) return;
 
+    uint16_t deg = degre_machine(reseau, transporteur);
+    machine_t connectees[deg];
+    machines_connectees(reseau, transporteur, connectees);
+
+    for (uint16_t i=0; i<deg; i++) {
+        if (connectees[i] != ancien)
+            transfert_trame(reseau, trame, connectees[i], transporteur);
+    }
+}
+
+void envoyer_trame(Reseau *reseau, Trame trame) {
+    char* macString = malloc(18);
+    printf("%s : Envoi d'une trame vers %s\n",mac_to_string(trame.addrSource, macString), mac_to_string(trame.addrDestination, macString));
+    free(macString);
+
+    machine_t transporteur = get_machine_par_mac(reseau, trame.addrSource);
+    transfert_trame(reseau, trame, transporteur, NULL);
 }

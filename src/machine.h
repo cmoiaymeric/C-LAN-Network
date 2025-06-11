@@ -54,5 +54,6 @@ void deinit_machine(Machine** machine);
 
 void afficher_machine(Machine machine);
 int comparer_mac_machine(Machine machine, Mac adresse_mac);
+Mac get_mac(Machine machine);
 
 #endif

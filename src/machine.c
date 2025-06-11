@@ -132,11 +132,15 @@ void afficher_machine(Machine machine) {
  * @return 0 si égales, une valeur différente sinon (selon comparer_adresses_mac)
  */
 int comparer_mac_machine(Machine machine, Mac adresse_mac) {
+  return comparer_adresses_mac(get_mac(machine), adresse_mac);
+}
+
+
+Mac get_mac(Machine machine) {
   if (machine.type_machine == TypeStation) {
-    Station* station = (Station*) machine.machine;
-    return comparer_adresses_mac(station->adresse_mac, adresse_mac);
-  } else {
-    Switch* switch_machine = (Switch*) machine.machine;
-    return comparer_adresses_mac(switch_machine->adresse_mac, adresse_mac);
+    return ((Station*)machine.machine)->adresse_mac;
+  }
+  else {
+    return ((Switch*)machine.machine)->adresse_mac;
   }
 }
