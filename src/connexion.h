@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef uint16_t machine_t;
 
@@ -13,3 +14,6 @@ typedef struct Connexion {
 } Connexion;
 
 void afficher_connexion(Connexion connexion);
+
+Connexion connexion_inverse(Connexion connexion);
+bool connexion_egale(Connexion c1, Connexion c2);

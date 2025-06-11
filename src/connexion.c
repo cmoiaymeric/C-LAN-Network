@@ -14,3 +14,10 @@ void afficher_connexion(Connexion connexion) {
     printf("Connection : %d  -->  %d\t", connexion.machine_1, connexion.machine_2);
     printf("Poids : %d\n", connexion.poids);
 }
+
+Connexion connexion_inverse(Connexion connexion) {
+
+}
+bool connexion_egale(Connexion c1, Connexion c2) {
+
+}

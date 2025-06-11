@@ -156,3 +156,35 @@ void afficher_reseau(Reseau *reseau) {
     }
 
 }
+
+uint16_t degre_machine(Reseau *reseau, uint16_t machine) {
+    uint16_t deg = 0;
+    for (uint16_t i=0; i< reseau->nb_connexions; i++) {
+        Connexion c = reseau->connexions[i];
+        if (c.machine_1 == machine || c.machine_2 == machine) {
+            deg++;
+        }
+    }
+    return deg;
+}
+
+void machines_connectees(Reseau *reseau, uint16_t machine, uint16_t* connectees) {
+    uint16_t nb=0;
+    for (uint16_t i=0; i< reseau->nb_connexions; i++) {
+        Connexion c = reseau->connexions[i];
+        if (c.machine_1 == machine) {
+            connectees[nb] = c.machine_2;
+            nb++;
+        }
+        else if (c.machine_2 == machine) {
+            connectees[nb] = c.machine_1;
+            nb++;
+        }
+    }
+}
+
+
+void envoyer_trame(Reseau *reseau, Trame trame) {
+    trame.TTL--;
+
+}

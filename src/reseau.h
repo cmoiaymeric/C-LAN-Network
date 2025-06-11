@@ -1,5 +1,6 @@
 #include "machine.h"
 #include "connexion.h"
+#include "trame.h"
 #include <stdint.h>
 
 #ifndef RESEAU_H
@@ -68,5 +69,10 @@ void ajouter_connection(Reseau* reseau, Connexion connexion);
  * @param reseau Pointeur vers le réseau.
  */
 void afficher_reseau(Reseau* reseau);
+
+uint16_t degre_machine(Reseau* reseau, uint16_t machine);
+void machines_connectees(Reseau* reseau, uint16_t machine, uint16_t* connectees); 
+
+void envoyer_trame(Reseau* reseau, Trame trame);
 
 #endif

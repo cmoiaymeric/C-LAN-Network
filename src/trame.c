@@ -13,6 +13,8 @@ void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, uint16_t type, char 
 {
     trame->SFD = 171; // Start Frame Delimiter : valeur fixe indiquant le début de la trame
 
+    trame->TTL = 64;
+
     // Copie des octets de l'adresse MAC source
     for (uint8_t i = 0; i < 6; i++)
     {

@@ -26,6 +26,7 @@ typedef enum typeTrame{
  * 
  * Champs :
  * - SFD               : Start Frame Delimiter, valeur fixe indiquant le début de la trame.
+ * - TTL               : Time To Live de la trame
  * - addrDestination   : Adresse MAC de destination.
  * - addrSource        : Adresse MAC source.
  * - type              : Type de protocole contenu dans la trame.
@@ -34,6 +35,7 @@ typedef enum typeTrame{
  */
 typedef struct Trame{
     uint8_t SFD;
+    uint8_t TTL;
     Mac addrDestination;
     Mac addrSource;
     typeTrame type;
