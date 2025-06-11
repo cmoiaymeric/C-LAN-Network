@@ -21,6 +21,7 @@ void init_reseau(Reseau* reseau) {
 }
 
 void deinit_reseau(Reseau* reseau) {
+
     for(uint16_t i = 0; i < reseau->nb_machines; i++) {
         if (reseau->machines[i].type_machine == TypeStation) {
             free((Station*)reseau->machines[i].machine);
@@ -71,7 +72,7 @@ int existe_connexion(Reseau* reseau, Connexion connexion) {
 void ajouter_machine(Reseau* reseau, Machine machine) {
     if (reseau->nb_machines >= reseau->machines_capacite ) {    // Si on est arrivé à la capacité max de machines
         reseau->machines_capacite *= 2;     // On double la capacité max de machines
-        reseau->machines = realloc(reseau->machines, sizeof(Machine) * (reseau->machines_capacite));    // On réalloue le tableau en plus grand
+        reseau->machines = realloc(reseau->machines, sizeof(Machine) * (reseau->machines_capacite)); // On réalloue le tableau
     }
     reseau->machines[reseau->nb_machines] = machine;
     reseau->nb_machines++;
@@ -81,7 +82,7 @@ void ajouter_machine(Reseau* reseau, Machine machine) {
 void ajouter_connection(Reseau* reseau, Connexion connexion) {
     if (reseau->nb_connexions >= reseau->connexions_capacite) {     // Si on est arrivé à la capacité max de connections
         reseau->connexions_capacite *= 2;       // On double la capacité max de connections
-        reseau->connexions = realloc(reseau->connexions, sizeof(Connexion) * reseau->connexions_capacite);  // On réalloue le tableau en plus grand
+        reseau->connexions = realloc(reseau->connexions, sizeof(Connexion) * reseau->connexions_capacite); // On réalloue le tableau
     }
     reseau->connexions[reseau->nb_connexions] = connexion;
     reseau->nb_connexions++;
@@ -89,15 +90,15 @@ void ajouter_connection(Reseau* reseau, Connexion connexion) {
 
 
 void afficher_reseau(Reseau *reseau) {
-    printf("*** Affichage du réseau ***\nMachines : ");
+    printf("*** Affichage du réseau ***\n\nMachines : Nombre de machines = %u, Nombre de connexions = %u", reseau->nb_machines, reseau->nb_connexions);
     for (uint16_t i=0; i< reseau->nb_machines; i++) {
-        printf("\n=====================================================================================\n[%u] ",i);
+        printf("\n=====================================================================================\n[%u]\t",i);
         afficher_machine(reseau->machines[i]);
     }
     printf("\n=====================================================================================\n");
 
     for (uint16_t i=0; i< reseau->nb_connexions; i++) {
-        printf("[%u] ",i);
+        printf("[%u]\t",i);
         afficher_connexion(reseau->connexions[i]);
         printf("==========================================\n");
     }
