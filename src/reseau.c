@@ -5,6 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief Initialise un réseau avec des capacités initiales pour machines et connexions.
+ * 
+ * @param reseau Pointeur vers la structure Reseau à initialiser
+ */
 void init_reseau(Reseau* reseau) {
 
     reseau->nb_machines = 0;    // Pas de machines par défaut
@@ -20,8 +25,13 @@ void init_reseau(Reseau* reseau) {
     reseau->nb_connexions = 0;  // Pas de connections par défaut
 }
 
+/**
+ * @brief Libère la mémoire allouée pour le réseau et ses machines.
+ * 
+ * @param reseau Pointeur vers la structure Reseau à désinitialiser
+ */
 void deinit_reseau(Reseau* reseau) {
-
+    // Libération mémoire des machines internes (chaque case du tableau)
     for(uint16_t i = 0; i < reseau->nb_machines; i++) {
         if (reseau->machines[i].type_machine == TypeStation) {
             free((Station*)reseau->machines[i].machine);
@@ -30,7 +40,7 @@ void deinit_reseau(Reseau* reseau) {
             free((Switch*)reseau->machines[i].machine);
         }
     }
-    
+    //libération du tableau
     free(reseau->machines);
     free(reseau->connexions);
     
@@ -42,14 +52,33 @@ void deinit_reseau(Reseau* reseau) {
     reseau->connexions_capacite = 0;
 }
 
+/**
+ * @brief Renvoie le nombre de machines dans le réseau.
+ * 
+ * @param reseau Pointeur vers la structure Reseau
+ * @return uint16_t Nombre de machines
+ */
 uint16_t nb_machines(Reseau* reseau) {
     return reseau->nb_machines;
 }
 
+/**
+ * @brief Renvoie le nombre de connexions dans le réseau.
+ * 
+ * @param reseau Pointeur vers la structure Reseau
+ * @return uint16_t Nombre de connexions
+ */
 uint16_t nb_connexions(Reseau* reseau) {
     return reseau->nb_connexions;
 }
 
+/**
+ * @brief Vérifie si l'indice de machine est valide dans le réseau.
+ * 
+ * @param reseau Pointeur vers la structure Reseau
+ * @param machine Indice de la machine à vérifier
+ * @return uint16_t Indice valide ou UINT16_MAX si invalide
+ */
 uint16_t index_machine(Reseau* reseau, machine_t machine) {
     
     if(machine < reseau->nb_machines){ 
@@ -58,7 +87,13 @@ uint16_t index_machine(Reseau* reseau, machine_t machine) {
     return UINT16_MAX;
 }
 
-// Retourne 1 si la connexion existe, 0 sinon
+/**
+ * @brief Vérifie si une connexion existe dans le réseau.
+ * 
+ * @param reseau Pointeur vers la structure Reseau
+ * @param connexion Connexion à rechercher
+ * @return int 1 si la connexion existe, 0 sinon
+ */
 int existe_connexion(Reseau* reseau, Connexion connexion) {
     for (int i = 0; i < reseau->nb_connexions; i++){
         if ((reseau->connexions[i].machine_1 == connexion.machine_1 && reseau->connexions[i].machine_2 == connexion.machine_2) || (reseau->connexions[i].machine_1 == connexion.machine_2) && reseau->connexions[i].machine_2 == connexion.machine_1){
@@ -69,6 +104,13 @@ int existe_connexion(Reseau* reseau, Connexion connexion) {
 }
 
 
+
+/**
+ * @brief Ajoute une machine au réseau, en doublant la capacité si nécessaire.
+ * 
+ * @param reseau Pointeur vers la structure Reseau
+ * @param machine Machine à ajouter
+ */
 void ajouter_machine(Reseau* reseau, Machine machine) {
     if (reseau->nb_machines >= reseau->machines_capacite ) {    // Si on est arrivé à la capacité max de machines
         reseau->machines_capacite *= 2;     // On double la capacité max de machines
@@ -78,7 +120,12 @@ void ajouter_machine(Reseau* reseau, Machine machine) {
     reseau->nb_machines++;
 }
 
-
+/**
+ * @brief Ajoute une connexion au réseau, en doublant la capacité si nécessaire.
+ * 
+ * @param reseau Pointeur vers la structure Reseau
+ * @param connexion Connexion à ajouter
+ */
 void ajouter_connection(Reseau* reseau, Connexion connexion) {
     if (reseau->nb_connexions >= reseau->connexions_capacite) {     // Si on est arrivé à la capacité max de connections
         reseau->connexions_capacite *= 2;       // On double la capacité max de connections
@@ -89,6 +136,11 @@ void ajouter_connection(Reseau* reseau, Connexion connexion) {
 }
 
 
+/**
+ * @brief Affiche les informations sur les machines et connexions du réseau.
+ * 
+ * @param reseau Pointeur vers la structure Reseau à afficher
+ */
 void afficher_reseau(Reseau *reseau) {
     printf("*** Affichage du réseau ***\n\nMachines : Nombre de machines = %u, Nombre de connexions = %u", reseau->nb_machines, reseau->nb_connexions);
     for (uint16_t i=0; i< reseau->nb_machines; i++) {
