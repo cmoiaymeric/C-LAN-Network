@@ -208,7 +208,7 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t transporteur, machin
         continuer=false;
     }
     else {
-        printf("%s : Je fais passer une trame\n",mac_to_string(get_mac(reseau->machines[transporteur]), macString));
+        printf("%s : Je fais passer une trame venant de %u\n",mac_to_string(get_mac(reseau->machines[transporteur]), macString), ancien);
         if (ancien != UINT16_MAX)
             ajouter_commutation(&reseau->machines[transporteur], trame.addrSource, ancien);
     }
