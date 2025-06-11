@@ -40,7 +40,7 @@ Mac get_mac(Machine* machine);
 void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip);
 void init_switch(Machine* machine, Mac adresse_mac, uint8_t nbPorts, uint16_t priorite);
 
-void deinit_machine(Machine** machine);
+void deinit_machine(Machine* machine);
 
 void afficher_machine(Machine* machine);
 

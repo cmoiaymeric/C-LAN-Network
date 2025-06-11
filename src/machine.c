@@ -19,7 +19,7 @@ void init_station(Machine* machine, Mac adresse_mac, IP adresse_ip) {
   Station* station = malloc(sizeof(Station));
   station->adresse_ip = adresse_ip;
   station->adresse_mac = adresse_mac;
-  station->voisin = malloc(sizeof(Machine));
+  station->voisin = NULL;
 
   machine->machine = station;
 }
@@ -41,17 +41,16 @@ void init_switch(Machine *machine, Mac adresse_mac, uint8_t nb_ports, uint16_t p
 
 }
 
-void deinit_machine(Machine **machine) {
-  if ((*machine)->type_machine == TypeStation) {
-    free(((Station*)(*machine)->machine));
-    (*machine)->machine = NULL;
+void deinit_machine(Machine *machine) {
+  if ((machine)->type_machine == TypeStation) {
+    //free((Station)machine->machine.voisin)
+    (machine)->machine = NULL;
   }
-  else if ((*machine)->type_machine == TypeSwitch) {
-    free(((Switch*)(*machine)->machine));
-    (*machine)->machine = NULL;
+  else if ((machine)->type_machine == TypeSwitch) {
+    //free(((machine)->machine));
+    (machine)->machine = NULL;
   }
-  free(*machine);
-  *machine = NULL; 
+  //free(machine);
 }
 
 
@@ -66,7 +65,9 @@ void afficher_machine(Machine* machine) {
     printf("Type de machine : Station  ");
     printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine->machine)->adresse_mac, macString));
     printf("Adresse IP : %s   ",ip_to_string(((Station*)machine->machine)->adresse_ip, ipString));
-	  printf("Lien : %s  ",mac_to_string(get_mac(((Station*)machine->machine)->voisin), macString));
+    if (((Station*)machine->machine)->voisin == NULL) {
+	    printf("Lien : %s  ",mac_to_string(get_mac(((Station*)machine->machine)->voisin), macString));
+    }
   }
   else if (machine->type_machine == TypeSwitch) 
   {

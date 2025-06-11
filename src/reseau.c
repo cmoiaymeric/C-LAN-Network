@@ -21,8 +21,11 @@ void init_reseau(Reseau* reseau) {
 }
 
 void deinit_reseau(Reseau* reseau) {
-    reseau->nb_machines = 0;
 
+    for (uint16_t i = 0; i < reseau->nb_machines; i++) {
+        deinit_machine(&(reseau->machines[i]));
+    }
+    reseau->nb_machines = 0;
     free(reseau->machines);
     reseau->machines = NULL;
 
