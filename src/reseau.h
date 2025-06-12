@@ -77,5 +77,7 @@ void machines_connectees(Reseau* reseau, machine_t machine, machine_t* connectee
 
 void transfert_trame(Reseau* reseau, Trame trame, machine_t passerelle, machine_t ancien);
 void envoyer_trame(Reseau* reseau, Trame trame);
+void recevoir_trame(Reseau* reseau, Trame trame, machine_t destination);
+void envoyer_ping(Reseau* reseau, Mac source, Mac destination);
 
 #endif

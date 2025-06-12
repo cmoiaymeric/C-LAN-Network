@@ -9,7 +9,7 @@
  * @param type         Type de la trame (valeur personnalisée ou type Ethernet).
  * @param data         Contenu des données (payload) à insérer dans la trame.
  */
-void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, uint16_t type, char *data)
+void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, typeTrame type, char *data)
 {
     trame->SFD = 171; // Start Frame Delimiter : valeur fixe indiquant le début de la trame
 

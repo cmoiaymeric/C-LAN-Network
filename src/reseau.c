@@ -1,6 +1,7 @@
 #include "reseau.h"
 #include "machine.h"
 #include "connexion.h"
+#include "trame.h"
 #include "type.h"
 #include <stdint.h>
 #include <stdio.h>
@@ -212,7 +213,7 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
     */
 
     if (comparer_mac_machine(reseau->machines[passerelle], trame.addrDestination)) {  
-        printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[passerelle]),macString), trame.data);
+        recevoir_trame(reseau, trame, passerelle);
         continuer=false;
     }
     else if (trame.TTL <= 0) {
@@ -249,7 +250,7 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
 void envoyer_trame(Reseau *reseau, Trame trame) {
     char* mac_string_src = malloc(18);
     char* mac_string_dest = malloc(18);
-    printf("%s : Envoi d'une trame vers %s\n", mac_to_string(trame.addrSource, mac_string_src), mac_to_string(trame.addrDestination, mac_string_dest));
+    printf("%s : Envoi d'une trame vers %s contenant '%s'\n", mac_to_string(trame.addrSource, mac_string_src), mac_to_string(trame.addrDestination, mac_string_dest),trame.data);
     free(mac_string_src);
     free(mac_string_dest);
     mac_string_src = NULL;
@@ -257,4 +258,23 @@ void envoyer_trame(Reseau *reseau, Trame trame) {
 
     machine_t passerelle = get_machine_par_mac(reseau, trame.addrSource);
     transfert_trame(reseau, trame, passerelle, UINT16_MAX);
+}
+
+void recevoir_trame(Reseau *reseau, Trame trame, machine_t destination) {
+    char* macString = malloc(18);
+    printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[destination]),macString), trame.data);
+    if (trame.type == ICMP_REQUEST) {
+        printf("\n");
+        Trame reponse;
+        init_trame(&reponse, &trame.addrDestination, &trame.addrSource, ICMP_REPLY, "echo reply");
+        envoyer_trame(reseau, reponse);
+    }
+
+    free(macString);
+}
+
+void envoyer_ping(Reseau* reseau, Mac source, Mac destination) {
+    Trame trame;
+    init_trame(&trame, &source, &destination, ICMP_REQUEST, "echo request");
+    envoyer_trame(reseau, trame);
 }

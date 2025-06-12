@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
   Mac mac2 = get_mac(reseau->machines[8]);
 
   Trame t1;
-  init_trame(&t1, &mac1, &mac2, 1, "blabla");
+  init_trame(&t1, &mac1, &mac2, IPv4, "blabla");
 
   envoyer_trame(reseau, t1);
 
@@ -36,10 +36,12 @@ int main(int argc, char* argv[]) {
   printf("\n");
 
   Trame t2;
-  init_trame(&t2, &mac2, &mac1, 1, "blublubluuuu");
+  init_trame(&t2, &mac2, &mac1, IPv4, "blublubluuuu");
   envoyer_trame(reseau, t2);
 
   afficher_table_commutation(&reseau->machines[3]);
+
+  envoyer_ping(reseau, mac1, mac2);
 
   deinit_trame(&t1);
   deinit_trame(&t2);

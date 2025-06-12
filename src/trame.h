@@ -16,7 +16,7 @@
  * - DHCP : Dynamic Host Configuration Protocol
  */
 typedef enum typeTrame{
-    ICMP,BPDU,ARP,IPv4,IPv6,DHCP
+    ICMP_REQUEST,ICMP_REPLY,BPDU,ARP,IPv4,IPv6,DHCP
 }typeTrame;
 
 
@@ -52,5 +52,5 @@ typedef struct Trame{
  * @param type       Type de trame (utiliser une valeur de l'enum typeTrame).
  * @param data       Données (payload) à insérer dans la trame (doit être une chaîne de caractères).
  */
-void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, uint16_t type, char *data);
+void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, typeTrame type, char *data);
 void deinit_trame(Trame *trame);
