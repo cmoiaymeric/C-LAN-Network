@@ -1,4 +1,5 @@
 #include "stp_god_mode.h"
+#include "connexion.h"
 
 void trier_connexions(Connexion *aretes_triees, Reseau* const g)
 {
@@ -37,7 +38,11 @@ void dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Rese
     Connexion* connexions_tri = malloc(sizeof(Connexion) * reseau_original->nb_connexions);
     trier_connexions(connexions_tri, reseau_original);
 
+    for (machine_t m=0; m< reseau_original->nb_machines; m++) {
+        ajouter_machine(reseau_arbre, reseau_original->machines[m]);
+    }
 
+    
 
     free(connexions_tri);
 }
