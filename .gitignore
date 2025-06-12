@@ -4,3 +4,7 @@
 
 # On enlève les fichiers de ressources sauf les .lan
 Ressources/
+
+# On enlèves les bin et build
+bin/*
+build/*

@@ -27,7 +27,9 @@ int main(int argc, char* argv[]) {
   init_reseau(arbre);
   prim_arbre_recouvrement(reseau, get_switch_racine(reseau), arbre);
 
+  printf("Reseau de base :\n");
   afficher_reseau(reseau);
+  printf("Reseau après l'algo de Prim :\n");
   afficher_reseau(arbre);
 
   
@@ -39,14 +41,16 @@ int main(int argc, char* argv[]) {
 
   envoyer_trame(arbre, t1);
 
-  afficher_table_commutation(&arbre->machines[3]);
+  printf("Table de commutation de la machine 3 :\n");
+  afficher_table_commutation(&arbre->machines[4]);
   printf("\n");
 
   Trame t2;
   init_trame(&t2, &mac2, &mac1, IPv4, "blublubluuuu");
   envoyer_trame(arbre, t2);
 
-  afficher_table_commutation(&arbre->machines[3]);
+  printf("Table de commutation de la machine 3 :\n");
+  afficher_table_commutation(&arbre->machines[4]);
 
   envoyer_ping(arbre, mac1, mac2);
 
