@@ -32,14 +32,14 @@ int main(int argc, char* argv[]) {
 
   envoyer_trame(reseau, t1);
 
-  afficher_table_commutation(&reseau->machines[0]);
+  afficher_table_commutation(&reseau->machines[3]);
   printf("\n");
 
   Trame t2;
   init_trame(&t2, &mac2, &mac1, 1, "blublubluuuu");
   envoyer_trame(reseau, t2);
 
-  afficher_table_commutation(&reseau->machines[0]);
+  afficher_table_commutation(&reseau->machines[3]);
 
   deinit_trame(&t1);
   deinit_trame(&t2);

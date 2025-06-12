@@ -201,14 +201,15 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
     char* macString = malloc(18);
 
     // Affichage de la machine suivante dans la chaîne de transfert (décommenter pour afficher le test)
-    /*char* mac_str_passerelle = malloc(18);
+    /*
+    char* mac_str_passerelle = malloc(18);
     mac_to_string(get_mac(reseau->machines[passerelle]), mac_str_passerelle);
     printf("\n");
     printf("adresse MAC passerelle (prochaine étape) : %s\n", mac_str_passerelle);
     printf("\n");
-
     free(mac_str_passerelle);
-    mac_str_passerelle = NULL;*/
+    mac_str_passerelle = NULL;
+    */
 
     if (comparer_mac_machine(reseau->machines[passerelle], trame.addrDestination)) {  
         printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[passerelle]),macString), trame.data);
@@ -219,15 +220,18 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
         continuer=false;
     }
     else {
-        if (ancien != UINT16_MAX)
+        if (ancien != UINT16_MAX) {
             ajouter_commutation(&reseau->machines[passerelle], trame.addrSource, ancien);
-    }
+            printf("oui\n");
+        }
+    }   
     if (continuer) {
 
         uint16_t index_commutation = get_index_commutation(&reseau->machines[passerelle], trame.addrDestination);
         if (index_commutation != UINT16_MAX) {
-            printf("%s : Je fais passer une trame en utilisant la commutation vers %u, venant de %u\n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), index_commutation, ancien);
-            transfert_trame(reseau, trame, index_commutation, passerelle);
+            uint16_t prochain = ((Switch*)reseau->machines[passerelle].machine)->table_commutation.entrees[index_commutation].port;
+            printf("%s : Je fais passer une trame en utilisant la commutation vers %u, venant de %u\n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), prochain, ancien);
+            transfert_trame(reseau, trame, prochain, passerelle);
         }
         else {
             uint16_t deg = degre_machine(reseau, passerelle);
