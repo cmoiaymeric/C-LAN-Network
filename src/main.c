@@ -21,7 +21,6 @@ int main(int argc, char* argv[]) {
   
   read_config_file(file,reseau);
 
-  printf("\n\n---\n\n");
   afficher_reseau(reseau);
 
   Mac mac1 = get_mac(reseau->machines[7]);
@@ -47,6 +46,8 @@ int main(int argc, char* argv[]) {
   deinit_trame(&t2);
 
 
+  printf("Switch racine : %u\n",get_switch_racine(reseau));
+  def_priorite_switch(reseau, 2, 1025);
   printf("Switch racine : %u\n",get_switch_racine(reseau));
 
   deinit_reseau(reseau);

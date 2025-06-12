@@ -109,14 +109,14 @@ void afficher_machine(Machine machine) {
 
   if (machine.type_machine == TypeStation) 
   {
-    printf("Type de machine : Station  ");
-    printf("Adresse MAC : %s   ",mac_to_string(((Station*)machine.machine)->adresse_mac, macString));
-    printf("Adresse IP : %s   ",ip_to_string(((Station*)machine.machine)->adresse_ip, ipString));
+    printf("Type : Station  ");
+    printf("MAC : %s   ",mac_to_string(((Station*)machine.machine)->adresse_mac, macString));
+    printf("IP : %s   ",ip_to_string(((Station*)machine.machine)->adresse_ip, ipString));
   }
   else if (machine.type_machine == TypeSwitch) 
   {
-    printf("Type de machine : Switch   ");
-    printf("Adresse MAC : %s   ",mac_to_string(((Switch*)machine.machine)->adresse_mac, macString));
+    printf("Type : Switch   ");
+    printf("MAC : %s   ",mac_to_string(((Switch*)machine.machine)->adresse_mac, macString));
     printf("Priorité : %u   ",((Switch*)machine.machine)->priorite);
   }
   else 

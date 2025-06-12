@@ -144,13 +144,13 @@ void ajouter_connection(Reseau* reseau, Connexion connexion) {
  * @param reseau Pointeur vers la structure Reseau à afficher
  */
 void afficher_reseau(Reseau *reseau) {
-    printf("*** Affichage du réseau ***\n\nMachines : Nombre de machines = %u, Nombre de connexions = %u", reseau->nb_machines, reseau->nb_connexions);
+    printf("*** Affichage du réseau ***\n\nNombre de machines = %u, Nombre de connexions = %u", reseau->nb_machines, reseau->nb_connexions);
     for (uint16_t i=0; i< reseau->nb_machines; i++) {
-        printf("\n=====================================================================================\n[%u]\t",i);
+        printf("\n==================================================================================\n[%u]\t",i);
         afficher_machine(reseau->machines[i]);
-        printf("\tNb liens : %u",degre_machine(reseau, i));     // TEMP
+        printf("\tDegré : %u",degre_machine(reseau, i));
     }
-    printf("\n=====================================================================================\n");
+    printf("\n==================================================================================\n");
 
     for (uint16_t i=0; i< reseau->nb_connexions; i++) {
         printf("[%u]\t",i);

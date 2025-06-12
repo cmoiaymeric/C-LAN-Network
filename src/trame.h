@@ -54,3 +54,6 @@ typedef struct Trame{
  */
 void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, typeTrame type, char *data);
 void deinit_trame(Trame *trame);
+
+void afficher_trame_user(Trame *trame);
+void affihcer_trame_hexa(Trame *trame);

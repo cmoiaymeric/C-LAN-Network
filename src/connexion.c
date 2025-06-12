@@ -11,7 +11,7 @@
  *        notamment les identifiants des deux machines et le poids de leur liaison.
  */
 void afficher_connexion(Connexion connexion) {
-    printf("Connection : %d  <-->  %d\t", connexion.machine_1, connexion.machine_2);
+    printf("Connection : %d <--> %d\t", connexion.machine_1, connexion.machine_2);
     printf("Poids : %d\n", connexion.poids);
 }
 
