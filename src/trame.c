@@ -11,7 +11,7 @@
  */
 void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, typeTrame type, char *data)
 {
-    trame->SFD = 171; // Start Frame Delimiter : valeur fixe indiquant le début de la trame
+    trame->Preambule = 0xAAAAAAAAAAAAAAAB; // Correspond à 1010...1010 10101011
 
     trame->TTL = 64;
 
@@ -49,7 +49,7 @@ void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, typeTrame type, char
  */
 void deinit_trame(Trame *trame)
 {
-    trame->SFD = 0;
+    trame->Preambule = 0;
     trame->TTL = 0;
 
     // Réinitialisation de l'adresse MAC source

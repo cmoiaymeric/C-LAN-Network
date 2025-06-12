@@ -25,7 +25,7 @@ typedef enum typeTrame{
  * @brief Représente une trame réseau de niveau 2 (Ethernet).
  * 
  * Champs :
- * - SFD               : Start Frame Delimiter, valeur fixe indiquant le début de la trame.
+ * - Preambule         : Préambule de la trame, 7 octets fixes (1010...1010) + SFD : un octet fixe indiquant le début de la trame. (10101011)
  * - TTL               : Time To Live de la trame
  * - addrDestination   : Adresse MAC de destination.
  * - addrSource        : Adresse MAC source.
@@ -34,7 +34,7 @@ typedef enum typeTrame{
  * - FCS               : Frame Check Sequence, utilisé pour la détection d'erreurs (non calculé ici).
  */
 typedef struct Trame{
-    uint8_t SFD;
+    uint64_t Preambule;
     uint8_t TTL;
     Mac addrDestination;
     Mac addrSource;
