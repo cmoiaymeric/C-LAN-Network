@@ -1,5 +1,5 @@
+#pragma once
 #include "machine.h"
-#include "connexion.h"
 #include "trame.h"
 #include <stdint.h>
 

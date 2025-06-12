@@ -1,5 +1,5 @@
+#pragma once
 #include "reseau.h"
-#include "machine.h"
 
 #pragma once
 #ifndef STP_GOD_MODE_H

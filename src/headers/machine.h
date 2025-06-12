@@ -1,3 +1,4 @@
+#pragma once
 #include "connexion.h"
 #include "type.h"
 #include <stddef.h>
