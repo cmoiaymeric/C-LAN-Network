@@ -11,7 +11,7 @@
  *        notamment les identifiants des deux machines et le poids de leur liaison.
  */
 void afficher_connexion(Connexion connexion) {
-    printf("Connection : %d  -->  %d\t", connexion.machine_1, connexion.machine_2);
+    printf("Connection : %d  <-->  %d\t", connexion.machine_1, connexion.machine_2);
     printf("Poids : %d\n", connexion.poids);
 }
 
@@ -19,5 +19,12 @@ Connexion connexion_inverse(Connexion connexion) {
 
 }
 bool connexion_egale(Connexion c1, Connexion c2) {
-
+    if ((c1.machine_1 == c2.machine_1 && c1.machine_2 == c2.machine_2) && c1.poids == c2.poids) {
+        return true;
+    }
+    // Pas sur de ça, mais on vérifie aussi l'inverse
+    if ((c1.machine_1 == c2.machine_2 && c1.machine_2 == c2.machine_1) && c1.poids == c2.poids) {
+        return true;
+    }
+    return false;
 }
