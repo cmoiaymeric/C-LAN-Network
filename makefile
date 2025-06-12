@@ -1,7 +1,7 @@
 TARGET_EXEC ?= main
 
-BUILD_DIR ?= ../build
-TARGET_DIR ?= ../bin
+BUILD_DIR ?= build
+TARGET_DIR ?= bin
 SRC_DIRS ?= src
 
 SRCS := $(shell find $(SRC_DIRS) -name "*.c")
