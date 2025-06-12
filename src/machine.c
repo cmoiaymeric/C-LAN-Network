@@ -18,7 +18,7 @@ void afficher_table_commutation(Machine *machine) {
 	if (machine->type_machine == TypeSwitch) {
 		Switch* sw = ((Switch*)machine->machine);
 		char *macString = malloc(sizeof(char)*18);
-		printf("Table de commutation du switch %s\n",mac_to_string(sw->adresse_mac,macString));
+		printf("\n  Table de commutation du switch %s\n",mac_to_string(sw->adresse_mac,macString));
 
 		for (uint16_t i=0; i< sw->table_commutation.nombre; i++) {
 			printf("Mac : %s  -->  Port : %u\n",mac_to_string(sw->table_commutation.entrees[i].destination, macString), sw->table_commutation.entrees[i].port);
@@ -134,7 +134,7 @@ void afficher_machine(Machine machine) {
  * 
  * @param machine La machine à comparer
  * @param adresse_mac L'adresse MAC à comparer
- * @return 0 si égales, une valeur différente sinon (selon comparer_adresses_mac)
+ * @return 1 si égales, une valeur différente sinon (selon comparer_adresses_mac)
  */
 int comparer_mac_machine(Machine machine, Mac adresse_mac) {
   return comparer_adresses_mac(get_mac(machine), adresse_mac);

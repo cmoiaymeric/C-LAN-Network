@@ -269,7 +269,8 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
             uint16_t deg = degre_machine(reseau, passerelle);
             machine_t connectees[deg];
             machines_connectees(reseau, passerelle, connectees);
-            printf("%s : Je fais passer une trame à mes %u voisins, venant de %u\n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), deg, ancien);
+            if (1 != comparer_mac_machine(reseau->machines[passerelle], trame.addrSource))
+                printf("%s : Je fais passer une trame venant de %u, à mes %u voisins en broadcast, \n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), ancien, deg-1);
             for (uint16_t i=0; i<deg; i++) {
                 if (connectees[i] != ancien)
                     transfert_trame(reseau, trame, connectees[i], passerelle);
@@ -283,7 +284,7 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
 void envoyer_trame(Reseau *reseau, Trame trame) {
     char* mac_string_src = malloc(18);
     char* mac_string_dest = malloc(18);
-    printf("%s : Envoi d'une trame vers %s contenant '%s'\n", mac_to_string(trame.addrSource, mac_string_src), mac_to_string(trame.addrDestination, mac_string_dest),trame.data);
+    printf("\n%s : Envoi d'une trame vers %s contenant '%s'\n", mac_to_string(trame.addrSource, mac_string_src), mac_to_string(trame.addrDestination, mac_string_dest),trame.data);
     free(mac_string_src);
     free(mac_string_dest);
     mac_string_src = NULL;
@@ -297,7 +298,6 @@ void recevoir_trame(Reseau *reseau, Trame trame, machine_t destination) {
     char* macString = malloc(18);
     printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[destination]),macString), trame.data);
     if (trame.type == ICMP_REQUEST) {
-        printf("\n");
         Trame reponse;
         init_trame(&reponse, &trame.addrDestination, &trame.addrSource, ICMP_REPLY, "echo reply");
         envoyer_trame(reseau, reponse);
