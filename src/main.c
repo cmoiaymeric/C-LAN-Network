@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
   printf("\n");
 
   Trame t2;
-  init_trame(&t2, &mac2, &mac1, IPv4, "Par la barbe de Z, ces données sont affichés en hexadécimal !");
+  init_trame(&t2, &mac2, &mac1, IPv4, "Par la barbe de Z, ces donnees sont affiches en hexadecimal !");
   envoyer_trame(arbre, t2);
 
   printf("Table de commutation de la machine 3 :\n");

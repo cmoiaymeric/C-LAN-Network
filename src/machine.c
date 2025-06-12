@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 /**
  * @brief Affiche la table de commutation d'un switch.
  * 
@@ -18,12 +19,18 @@ void afficher_table_commutation(Machine *machine) {
 	if (machine->type_machine == TypeSwitch) {
 		Switch* sw = ((Switch*)machine->machine);
 		char *macString = malloc(sizeof(char)*18);
-		printf("\n  Table de commutation du switch %s\n",mac_to_string(sw->adresse_mac,macString));
+		printf(("Table de commutation du switch :\n"));
+    printf("┌─────────────────────────────┬────────┐\n");
+    printf("│        Adresse MAC          │  Port  │\n");
+    printf("├─────────────────────────────┼────────┤\n");
 
 		for (uint16_t i=0; i< sw->table_commutation.nombre; i++) {
-			printf("Mac : %s  -->  Port : %u\n",mac_to_string(sw->table_commutation.entrees[i].destination, macString), sw->table_commutation.entrees[i].port);
-      
+      printf("│      ");
+			printf("%s",mac_to_string(sw->table_commutation.entrees[i].destination, macString));
+      printf("      │   %2d   │\n", sw->table_commutation.entrees[i].port);
     }
+
+    printf("└─────────────────────────────┴────────┘\n");
     free(macString);
 	}
 }
