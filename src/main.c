@@ -30,20 +30,9 @@ int main(int argc, char* argv[]) {
   Trame t1;
   init_trame(&t1, &mac1, &mac2, 1, "blabla");
 
-  char* mac_string_source = malloc(18);
-  char* mac_string_destination = malloc(18);
-  mac_to_string(mac1, mac_string_source);
-  mac_to_string(mac2, mac_string_destination);
-  printf("MAC 1 : %s\n", mac_string_source);
-  printf("MAC 2 : %s\n", mac_string_destination);
-  free(mac_string_source);
-  free(mac_string_destination);
-  mac_string_source = NULL;
-  mac_string_destination = NULL;
-
   envoyer_trame(reseau, t1);
 
-  afficher_table_commutation(&reseau->machines[2]);
+  afficher_table_commutation(&reseau->machines[0]);
   printf("\n");
 
   Trame t2;
