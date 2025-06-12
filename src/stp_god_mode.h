@@ -33,7 +33,7 @@ typedef struct {
  *      à l'ordre des connexions dans `g`. Ce tableau doit contenir exactement le même nombre
  *      d'éléments que connexion dans le réseau.
  */
-void trier_connexions(Connexion *aretes_triees, Reseau* const g, uint8_t *poids_arete);
+void trier_connexions(Connexion *aretes_triees, Reseau* const g);
 void dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Reseau* reseau_arbre);
 
 #endif

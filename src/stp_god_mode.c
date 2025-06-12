@@ -1,8 +1,8 @@
 #include "stp_god_mode.h"
 
-void trier_aretes(arete *aretes_triees, graphe const *g, double const *poids_arete)
+void trier_connexions(Connexion *aretes_triees, Reseau* const g)
 {
-    int nb_aretes = g->nb_aretes;
+    int nb_aretes = g->nb_connexions;
     int indices[nb_aretes];
 
     // Initialiser les indices
@@ -14,7 +14,7 @@ void trier_aretes(arete *aretes_triees, graphe const *g, double const *poids_are
     for (int i = 0; i < nb_aretes - 1; i++) {
         int min_index = i;
         for (int j = i + 1; j < nb_aretes; j++) {
-            if (poids_arete[indices[j]] < poids_arete[indices[min_index]]) {
+            if (g->connexions[indices[j]].poids < g->connexions[indices[min_index]].poids) {
                 min_index = j;
             }
         }
@@ -28,7 +28,7 @@ void trier_aretes(arete *aretes_triees, graphe const *g, double const *poids_are
 
     // Remplir aretes_triees avec les aretes triees
     for (int i = 0; i < nb_aretes; i++) {
-        aretes_triees[i] = g->aretes[indices[i]];
+        aretes_triees[i] = g->connexions[indices[i]];
     }
 }
 
