@@ -34,3 +34,10 @@ bool connexion_egale(Connexion c1, Connexion c2) {
 uint8_t get_poids(Connexion connexion) {
     return connexion.poids;
 }
+
+int comparer_poids_connexion(Connexion c1, Connexion c2) {
+    if (c1.poids > c2.poids) {
+        return 1;
+    }
+    return 0;
+}

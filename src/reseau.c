@@ -33,13 +33,27 @@ void init_reseau(Reseau* reseau) {
  * @param reseau Pointeur vers la structure Reseau à désinitialiser
  */
 void deinit_reseau(Reseau* reseau) {
+    free(reseau->machines);
+    free(reseau->connexions);
+    
+    reseau->machines = NULL;
+    reseau->connexions = NULL;
+    reseau->nb_machines = 0;
+    reseau->nb_connexions = 0;
+    reseau->machines_capacite = 0;
+    reseau->connexions_capacite = 0;
+}
+void deinit_reseau_complet(Reseau* reseau) {
     // Libération mémoire des machines internes (chaque case du tableau)
     for(uint16_t i = 0; i < reseau->nb_machines; i++) {
         if (reseau->machines[i].type_machine == TypeStation) {
             free((Station*)reseau->machines[i].machine);
         }
         else if (reseau->machines[i].type_machine == TypeSwitch) {
-            free((Switch*)reseau->machines[i].machine);
+            // CORRECTION: Libérer d'abord la table de commutation
+            Switch* sw = (Switch*)reseau->machines[i].machine;
+            free(sw->table_commutation.entrees);
+            free(sw);
         }
     }
     //libération du tableau
@@ -301,6 +315,7 @@ void recevoir_trame(Reseau *reseau, Trame trame, machine_t destination, machine_
         Trame reponse;
         init_trame(&reponse, &trame.addrDestination, &trame.addrSource, ICMP_REPLY, "echo reply");
         envoyer_trame(reseau, reponse);
+        deinit_trame(&reponse);
     }
 
     free(macString);
@@ -310,4 +325,5 @@ void envoyer_ping(Reseau* reseau, Mac source, Mac destination) {
     Trame trame;
     init_trame(&trame, &source, &destination, ICMP_REQUEST, "echo request");
     envoyer_trame(reseau, trame);
+    deinit_trame(&trame);
 }

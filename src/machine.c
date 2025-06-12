@@ -22,7 +22,9 @@ void afficher_table_commutation(Machine *machine) {
 
 		for (uint16_t i=0; i< sw->table_commutation.nombre; i++) {
 			printf("Mac : %s  -->  Port : %u\n",mac_to_string(sw->table_commutation.entrees[i].destination, macString), sw->table_commutation.entrees[i].port);
-		}
+      
+    }
+    free(macString);
 	}
 }
 
@@ -85,8 +87,9 @@ void deinit_machine(Machine **machine) {
         free(((Station*)(*machine)->machine));
     }
     else if ((*machine)->type_machine == TypeSwitch) {
-        free(((Switch*)(*machine)->machine)->table_commutation.entrees);
-        free(((Switch*)(*machine)->machine));
+        Switch* sw = (Switch*)(*machine)->machine;
+        free(sw->table_commutation.entrees);  // Libérer la table
+        free(sw);  // Libérer le switch
     }
     
     (*machine)->machine = NULL;

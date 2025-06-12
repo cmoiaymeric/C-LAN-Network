@@ -8,7 +8,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 int main(int argc, char* argv[]) {
     
   argc--; argv++;
@@ -59,10 +58,13 @@ int main(int argc, char* argv[]) {
   def_priorite_switch(arbre, 2, 1025);
   printf("Switch racine : %u\n",get_switch_racine(reseau));
   
-  deinit_reseau(reseau);
+  deinit_reseau(arbre);
+  free(arbre);
+  arbre = NULL;
+  
+  deinit_reseau_complet(reseau);
   free(reseau);
   reseau = NULL;
-  free(arbre);
-  arbre=NULL;
+  
   exit(0);
 }

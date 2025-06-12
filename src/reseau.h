@@ -29,6 +29,7 @@ void init_reseau(Reseau* reseau);
  * @param reseau Pointeur vers le réseau à désinitialiser.
  */
 void deinit_reseau(Reseau* reseau);
+void deinit_reseau_complet(Reseau* reseau);
 
 /**
  * @brief Renvoie le nombre de machines dans le réseau.
@@ -74,6 +75,7 @@ machine_t get_machine_par_mac(Reseau* reseau, Mac mac);
 
 machine_t degre_machine(Reseau* reseau, machine_t machine);
 void machines_connectees(Reseau* reseau, machine_t machine, machine_t* connectees); 
+
 
 void def_priorite_switch(Reseau* reseau, machine_t machine, uint16_t priorite);
 machine_t get_switch_racine(Reseau* reseau);
