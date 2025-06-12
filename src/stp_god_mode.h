@@ -1,9 +1,9 @@
-#pragma once
-#ifndef DIJKSTRA_H
-#define DIJKSTRA_H
-
 #include "reseau.h"
 #include "machine.h"
+
+#pragma once
+#ifndef STP_GOD_MODE_H
+#define STP_GOD_MODE_H
 
 // Structure pour stocker les informations de Dijkstra
 typedef struct {
@@ -33,5 +33,5 @@ typedef struct {
  *      à l'ordre des connexions dans `g`. Ce tableau doit contenir exactement le même nombre
  *      d'éléments que connexion dans le réseau.
  */
-void trier_connexions(Connexion *aretes_triees, reseau const *g, uint8_t *poids_arete);
-Reseau* dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine);
+void trier_connexions(Connexion *aretes_triees, Reseau* const g, uint8_t *poids_arete);
+void dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Reseau* reseau_arbre);
