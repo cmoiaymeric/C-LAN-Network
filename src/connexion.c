@@ -16,7 +16,8 @@ void afficher_connexion(Connexion connexion) {
 }
 
 Connexion connexion_inverse(Connexion connexion) {
-
+    Connexion inverse = {connexion.machine_2, connexion.machine_1, connexion.poids};
+    return inverse;
 }
 bool connexion_egale(Connexion c1, Connexion c2) {
     if ((c1.machine_1 == c2.machine_1 && c1.machine_2 == c2.machine_2) && c1.poids == c2.poids) {
@@ -27,4 +28,9 @@ bool connexion_egale(Connexion c1, Connexion c2) {
         return true;
     }
     return false;
+}
+
+
+uint8_t get_poids(Connexion connexion) {
+    return connexion.poids;
 }

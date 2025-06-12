@@ -17,3 +17,7 @@ void afficher_connexion(Connexion connexion);
 
 Connexion connexion_inverse(Connexion connexion);
 bool connexion_egale(Connexion c1, Connexion c2);
+uint8_t get_poids(Connexion connexion);
+
+// Renvoie 1, si c1 est plus grand que c2, 0 sinon
+int comparer_poids_connexion(Connexion c1, Connexion c2);
