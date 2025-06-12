@@ -1,5 +1,5 @@
-#include "stp_god_mode.h"
-#include "connexion.h"
+#include "headers/stp_god_mode.h"
+#include "headers/connexion.h"
 #include <stdint.h>
 
 void trier_connexions(Connexion *aretes_triees, Reseau* const g)

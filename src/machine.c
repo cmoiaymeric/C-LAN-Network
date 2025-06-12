@@ -1,5 +1,5 @@
-#include "machine.h"
-#include "type.h"
+#include "headers/machine.h"
+#include "headers/type.h"
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>

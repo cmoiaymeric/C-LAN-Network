@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "reader.h"
-#include "connexion.h"
-#include "machine.h"
-#include "type.h"
-#include "reseau.h"
+#include "headers/reader.h"
+#include "headers/connexion.h"
+#include "headers/machine.h"
+#include "headers/type.h"
+#include "headers/reseau.h"
 
 
 #define MAX_STR_LENGTH 128

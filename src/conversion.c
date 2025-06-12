@@ -1,4 +1,4 @@
-#include "conversion.h"
+#include "headers/conversion.h"
 
 // Fonction récursive pour calculer base^exposant (à optimiser si nécessaire)
 int puissance(int base, int exposant)

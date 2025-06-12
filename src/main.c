@@ -1,9 +1,9 @@
-#include "connexion.h"
-#include "reader.h"
-#include "machine.h"
-#include "reseau.h"
-#include "stp_god_mode.h"
-#include "trame.h"
+#include "headers/connexion.h"
+#include "headers/reader.h"
+#include "headers/machine.h"
+#include "headers/reseau.h"
+#include "headers/stp_god_mode.h"
+#include "headers/trame.h"
 
 #include <stdint.h>
 #include <stdio.h>

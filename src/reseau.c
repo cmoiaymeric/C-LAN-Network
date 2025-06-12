@@ -1,8 +1,8 @@
-#include "reseau.h"
-#include "machine.h"
-#include "connexion.h"
-#include "trame.h"
-#include "type.h"
+#include "headers/reseau.h"
+#include "headers/machine.h"
+#include "headers/connexion.h"
+#include "headers/trame.h"
+#include "headers/type.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
