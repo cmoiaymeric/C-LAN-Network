@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
   def_priorite_switch(arbre, 2, 1025);
   printf("Switch racine : %u\n",get_switch_racine(reseau));
   
+  
   deinit_reseau(arbre);
   free(arbre);
   arbre = NULL;

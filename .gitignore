@@ -6,5 +6,5 @@
 Ressources/
 
 # On enlèves les bin et build
-bin/*
-build/*
+bin/
+build/
