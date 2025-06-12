@@ -220,10 +220,8 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
         continuer=false;
     }
     else {
-        if (ancien != UINT16_MAX) {
+        if (ancien != UINT16_MAX)
             ajouter_commutation(&reseau->machines[passerelle], trame.addrSource, ancien);
-            printf("oui\n");
-        }
     }   
     if (continuer) {
 
