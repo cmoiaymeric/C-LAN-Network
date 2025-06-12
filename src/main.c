@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
   Mac mac2 = get_mac(arbre->machines[14]);
 
   Trame t1;
-  init_trame(&t1, &mac1, &mac2, IPv4, "blabla");
+  init_trame(&t1, &mac1, &mac2, IPv4, "Message sent to Station 2");
 
   envoyer_trame(arbre, t1);
 
@@ -54,6 +54,8 @@ int main(int argc, char* argv[]) {
 
   envoyer_ping(arbre, mac1, mac2);
 
+  afficher_trame_hexa(&t1);
+  afficher_trame_hexa(&t2);
   deinit_trame(&t1);
   deinit_trame(&t2);
 
