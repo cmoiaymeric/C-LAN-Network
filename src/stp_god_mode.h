@@ -34,6 +34,6 @@ typedef struct {
  *      d'éléments que connexion dans le réseau.
  */
 void trier_connexions(Connexion *aretes_triees, Reseau* const g);
-void dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Reseau* reseau_arbre);
+void prim_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Reseau* reseau_arbre);
 
 #endif

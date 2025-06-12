@@ -246,7 +246,7 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
     */
 
     if (comparer_mac_machine(reseau->machines[passerelle], trame.addrDestination)) {  
-        recevoir_trame(reseau, trame, passerelle);
+        recevoir_trame(reseau, trame, passerelle, ancien);
         continuer=false;
     }
     else if (trame.TTL <= 0) {
@@ -262,7 +262,7 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
         uint16_t index_commutation = get_index_commutation(&reseau->machines[passerelle], trame.addrDestination);
         if (index_commutation != UINT16_MAX) {
             uint16_t prochain = ((Switch*)reseau->machines[passerelle].machine)->table_commutation.entrees[index_commutation].port;
-            printf("%s : Je fais passer une trame venant de %u, commutation vers %u\n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), ancien, prochain);
+            printf("%s (%u) : Je fais passer une trame venant de %u, commutation vers %u\n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), passerelle, ancien, prochain);
             transfert_trame(reseau, trame, prochain, passerelle);
         }
         else {
@@ -270,7 +270,7 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
             machine_t connectees[deg];
             machines_connectees(reseau, passerelle, connectees);
             if (1 != comparer_mac_machine(reseau->machines[passerelle], trame.addrSource))
-                printf("%s : Je fais passer une trame venant de %u, à mes %u voisins en broadcast, \n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), ancien, deg-1);
+                printf("%s (%u) : Je fais passer une trame venant de %u, à mes %u voisins en broadcast, \n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), passerelle, ancien, deg-1);
             for (uint16_t i=0; i<deg; i++) {
                 if (connectees[i] != ancien)
                     transfert_trame(reseau, trame, connectees[i], passerelle);
@@ -294,9 +294,9 @@ void envoyer_trame(Reseau *reseau, Trame trame) {
     transfert_trame(reseau, trame, passerelle, UINT16_MAX);
 }
 
-void recevoir_trame(Reseau *reseau, Trame trame, machine_t destination) {
+void recevoir_trame(Reseau *reseau, Trame trame, machine_t destination, machine_t ancien) {
     char* macString = malloc(18);
-    printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[destination]),macString), trame.data);
+    printf("%s : J'ai reçu un message venant de %u ! '%s'\n", mac_to_string(get_mac(reseau->machines[destination]),macString), ancien, trame.data);
     if (trame.type == ICMP_REQUEST) {
         Trame reponse;
         init_trame(&reponse, &trame.addrDestination, &trame.addrSource, ICMP_REPLY, "echo reply");

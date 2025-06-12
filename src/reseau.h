@@ -80,7 +80,7 @@ machine_t get_switch_racine(Reseau* reseau);
 
 void transfert_trame(Reseau* reseau, Trame trame, machine_t passerelle, machine_t ancien);
 void envoyer_trame(Reseau* reseau, Trame trame);
-void recevoir_trame(Reseau* reseau, Trame trame, machine_t destination);
+void recevoir_trame(Reseau* reseau, Trame trame, machine_t destination, machine_t ancien);
 void envoyer_ping(Reseau* reseau, Mac source, Mac destination);
 
 #endif

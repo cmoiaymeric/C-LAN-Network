@@ -1,5 +1,6 @@
 #include "stp_god_mode.h"
 #include "connexion.h"
+#include <stdint.h>
 
 void trier_connexions(Connexion *aretes_triees, Reseau* const g)
 {
@@ -33,8 +34,17 @@ void trier_connexions(Connexion *aretes_triees, Reseau* const g)
     }
 }
 
-void dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Reseau* reseau_arbre)
+
+
+
+void prim_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Reseau* reseau_arbre)
 {
+    bool visistes[reseau_original->nb_machines];
+    for (uint16_t i=0; i<reseau_original->nb_machines; i++) {
+        visistes[i] = false;
+    }
+    visistes[racine] = true;
+
     Connexion* connexions_tri = malloc(sizeof(Connexion) * reseau_original->nb_connexions);
     trier_connexions(connexions_tri, reseau_original);
 
@@ -42,7 +52,28 @@ void dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Rese
         ajouter_machine(reseau_arbre, reseau_original->machines[m]);
     }
 
-    
+    bool fini = false;
+    while (!fini) {
+
+        uint16_t ind = 0;
+        while (ind < nb_connexions(reseau_original)) {
+            Connexion connexion = connexions_tri[ind];
+            if ((visistes[connexion.machine_1] && !visistes[connexion.machine_2])) {
+                visistes[connexion.machine_2] = true;
+                ajouter_connection(reseau_arbre, connexion);
+                break;
+            }
+            else if ((!visistes[connexion.machine_1] && visistes[connexion.machine_2])) {
+                visistes[connexion.machine_1] = true;
+                ajouter_connection(reseau_arbre, connexion);
+                break;
+            }
+            ind++;
+        }
+        if (ind >= nb_connexions(reseau_original)) {
+            fini=true;
+        }
+    }
 
     free(connexions_tri);
 }
