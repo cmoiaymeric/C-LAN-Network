@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
   envoyer_trame(arbre, t1);
 
   printf("Table de commutation de la machine 3 :\n");
-  afficher_table_commutation(&arbre->machines[3]);
+  afficher_table_commutation(&arbre->machines[4]);
   printf("\n");
 
   Trame t2;
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
   envoyer_trame(arbre, t2);
 
   printf("Table de commutation de la machine 3 :\n");
-  afficher_table_commutation(&arbre->machines[3]);
+  afficher_table_commutation(&arbre->machines[4]);
 
   envoyer_ping(arbre, mac1, mac2);
 
