@@ -29,24 +29,38 @@ int main(int argc, char* argv[]) {
 
   printf("Reseau de base :\n");
   afficher_reseau(reseau);
-  printf("Reseau après l'algo de Prim :\n");
+  printf("\nReseau après l'algo de Prim :\n");
   afficher_reseau(arbre);
-
+  printf("\n\n");
   
-  Mac mac1 = get_mac(arbre->machines[7]);
-  Mac mac2 = get_mac(arbre->machines[14]);
+
+  machine_t machine1 = 7;
+  machine_t machine2 = 14;
+
+  Mac mac1 = get_mac(arbre->machines[machine1]);
+  Mac mac2 = get_mac(arbre->machines[machine2]);
+
+  printf("ENVOI DE LA TRAME 1 entre %u et %u\n",machine1,machine2);
 
   Trame t1;
   init_trame(&t1, &mac1, &mac2, IPv4, "Message sent to Station 14 from Station 7");
-
+  afficher_trame_hexa(&t1);
+  printf("\n");
+  afficher_trame_user(&t1);
   envoyer_trame(arbre, t1);
 
   printf("Table de commutation de la machine 3 :\n");
   afficher_table_commutation(&arbre->machines[4]);
   printf("\n");
 
+
+  printf("ENVOI DE LA TRAME 2 entre %u et %u\n",machine2,machine1);
+
   Trame t2;
   init_trame(&t2, &mac2, &mac1, IPv4, "Par la barbe de Z, ces donnees sont affiches en hexadecimal !");
+  afficher_trame_hexa(&t2);
+  printf("\n");
+  afficher_trame_user(&t2);
   envoyer_trame(arbre, t2);
 
   printf("Table de commutation de la machine 3 :\n");
@@ -54,16 +68,8 @@ int main(int argc, char* argv[]) {
 
   envoyer_ping(arbre, mac1, mac2);
 
-  afficher_trame_hexa(&t1);
-  afficher_trame_hexa(&t2);
   deinit_trame(&t1);
   deinit_trame(&t2);
-
-
-  printf("Switch racine : %u\n",get_switch_racine(arbre));
-  def_priorite_switch(arbre, 2, 1025);
-  printf("Switch racine : %u\n",get_switch_racine(reseau));
-  
   
   deinit_reseau(arbre);
   free(arbre);
