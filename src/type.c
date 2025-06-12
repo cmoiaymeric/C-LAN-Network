@@ -90,3 +90,12 @@ int comparer_adresses_mac( Mac addr1, Mac addr2)
   }
   return 1; // Les adresses MAC sont identiques
 }
+
+bool mac_est_plus_petite(Mac macP, Mac macG) {
+  for (uint8_t i=0; i<6; i++) {
+    if (macP.octets[i] >= macG.octets[i]) {
+      return false;
+    }
+  }
+  return true;
+}

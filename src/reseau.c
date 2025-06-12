@@ -195,6 +195,39 @@ void machines_connectees(Reseau *reseau, machine_t machine, machine_t* connectee
     }
 }
 
+void def_priorite_switch(Reseau *reseau, machine_t machine, uint16_t priorite) {
+    if (reseau->machines[machine].type_machine == TypeSwitch)
+        ((Switch*)reseau->machines[machine].machine)->priorite = priorite;
+}
+
+machine_t get_switch_racine(Reseau *reseau) {
+    machine_t racine = -1;
+    uint16_t priorite_max = 0;
+    Mac mac;
+
+    for (machine_t s = 0; s < reseau->nb_machines; s++) {
+        if (reseau->machines[s].type_machine == TypeSwitch) {
+            Switch* sw = (Switch*)reseau->machines[s].machine;
+
+            if (sw->priorite > priorite_max) {
+                priorite_max = sw->priorite;
+                mac = sw->adresse_mac;
+                racine = s;
+
+            } else if (sw->priorite == priorite_max) {
+                if (mac_est_plus_petite(sw->adresse_mac, mac)) {
+                    mac = sw->adresse_mac;
+                    racine = s;
+                }
+            }
+        }
+    }
+
+    return racine;
+}
+
+
+
 
 void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_t ancien) {
     trame.TTL--;
@@ -229,7 +262,7 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
         uint16_t index_commutation = get_index_commutation(&reseau->machines[passerelle], trame.addrDestination);
         if (index_commutation != UINT16_MAX) {
             uint16_t prochain = ((Switch*)reseau->machines[passerelle].machine)->table_commutation.entrees[index_commutation].port;
-            printf("%s : Je fais passer une trame en utilisant la commutation vers %u, venant de %u\n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), prochain, ancien);
+            printf("%s : Je fais passer une trame venant de %u, commutation vers %u\n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), ancien, prochain);
             transfert_trame(reseau, trame, prochain, passerelle);
         }
         else {

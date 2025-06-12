@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifndef TYPE_H
 #define TYPE_H
@@ -71,5 +72,8 @@ IP* ip_from_string(char * ip_string, IP* adresse_ip);
  * @return 1 si les adresses sont identiques, 0 sinon.
  */
 int comparer_adresses_mac( Mac addr1, Mac addr2);
+
+
+bool mac_est_plus_petite(Mac macP, Mac macG);
 
 #endif

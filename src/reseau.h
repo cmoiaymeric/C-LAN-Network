@@ -75,6 +75,9 @@ machine_t get_machine_par_mac(Reseau* reseau, Mac mac);
 machine_t degre_machine(Reseau* reseau, machine_t machine);
 void machines_connectees(Reseau* reseau, machine_t machine, machine_t* connectees); 
 
+void def_priorite_switch(Reseau* reseau, machine_t machine, uint16_t priorite);
+machine_t get_switch_racine(Reseau* reseau);
+
 void transfert_trame(Reseau* reseau, Trame trame, machine_t passerelle, machine_t ancien);
 void envoyer_trame(Reseau* reseau, Trame trame);
 void recevoir_trame(Reseau* reseau, Trame trame, machine_t destination);

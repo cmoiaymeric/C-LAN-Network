@@ -46,6 +46,9 @@ int main(int argc, char* argv[]) {
   deinit_trame(&t1);
   deinit_trame(&t2);
 
+
+  printf("Switch racine : %u\n",get_switch_racine(reseau));
+
   deinit_reseau(reseau);
   free(reseau);
   reseau = NULL;
