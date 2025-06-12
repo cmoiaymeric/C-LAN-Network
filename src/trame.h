@@ -53,3 +53,4 @@ typedef struct Trame{
  * @param data       Données (payload) à insérer dans la trame (doit être une chaîne de caractères).
  */
 void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, uint16_t type, char *data);
+void deinit_trame(Trame *trame);

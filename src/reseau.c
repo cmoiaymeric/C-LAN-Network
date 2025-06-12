@@ -165,7 +165,7 @@ machine_t get_machine_par_mac(Reseau* reseau, Mac mac) {
             return m;
         }
     }
-    return NULL;
+    return 0;
 }
 
 machine_t degre_machine(Reseau *reseau, machine_t machine) {
@@ -199,6 +199,17 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
     trame.TTL--;
     bool continuer = true;
     char* macString = malloc(18);
+
+    // Affichage de la machine suivante dans la chaîne de transfert (décommenter pour afficher le test)
+    /*char* mac_str_passerelle = malloc(18);
+    mac_to_string(get_mac(reseau->machines[passerelle]), mac_str_passerelle);
+    printf("\n");
+    printf("adresse MAC passerelle (prochaine étape) : %s\n", mac_str_passerelle);
+    printf("\n");
+
+    free(mac_str_passerelle);
+    mac_str_passerelle = NULL;*/
+
     if (comparer_mac_machine(reseau->machines[passerelle], trame.addrDestination)) {  
         printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[passerelle]),macString), trame.data);
         continuer=false;
@@ -234,9 +245,13 @@ void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_
 
 
 void envoyer_trame(Reseau *reseau, Trame trame) {
-    char* macString = malloc(18);
-    printf("%s : Envoi d'une trame vers %s\n",mac_to_string(trame.addrSource, macString), mac_to_string(trame.addrDestination, macString));
-    free(macString);
+    char* mac_string_src = malloc(18);
+    char* mac_string_dest = malloc(18);
+    printf("%s : Envoi d'une trame vers %s\n", mac_to_string(trame.addrSource, mac_string_src), mac_to_string(trame.addrDestination, mac_string_dest));
+    free(mac_string_src);
+    free(mac_string_dest);
+    mac_string_src = NULL;
+    mac_string_dest = NULL;
 
     machine_t passerelle = get_machine_par_mac(reseau, trame.addrSource);
     transfert_trame(reseau, trame, passerelle, UINT16_MAX);
