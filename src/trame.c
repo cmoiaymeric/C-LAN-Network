@@ -115,9 +115,9 @@ void afficher_trame_hexa(Trame* trame){
 
         if (i < 5) strcat(str_adr_dest," ");
     }
-    strcat(str_adr_macs, str_adr_src);
-    strcat(str_adr_macs, " ");
     strcat(str_adr_macs, str_adr_dest);
+    strcat(str_adr_macs, " ");
+    strcat(str_adr_macs, str_adr_src);
 
     free(str_adr_src);
     str_adr_src = NULL;

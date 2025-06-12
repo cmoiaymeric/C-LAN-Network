@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
   Mac mac2 = get_mac(arbre->machines[14]);
 
   Trame t1;
-  init_trame(&t1, &mac1, &mac2, IPv4, "Message sent to Station 2");
+  init_trame(&t1, &mac1, &mac2, IPv4, "Message sent to Station 14 from Station 7");
 
   envoyer_trame(arbre, t1);
 
@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
   printf("\n");
 
   Trame t2;
-  init_trame(&t2, &mac2, &mac1, IPv4, "blublubluuuu");
+  init_trame(&t2, &mac2, &mac1, IPv4, "Par la barbe de Z, ces données sont affichés en hexadécimal !");
   envoyer_trame(arbre, t2);
 
   printf("Table de commutation de la machine 3 :\n");
