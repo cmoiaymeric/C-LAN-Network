@@ -34,5 +34,10 @@ void trier_connexions(Connexion *aretes_triees, Reseau* const g)
 
 void dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Reseau* reseau_arbre)
 {
-    
+    Connexion* connexions_tri = malloc(sizeof(Connexion) * reseau_original->nb_connexions);
+    trier_connexions(connexions_tri, reseau_original);
+
+
+
+    free(connexions_tri);
 }

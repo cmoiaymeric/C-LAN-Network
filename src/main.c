@@ -53,12 +53,6 @@ int main(int argc, char* argv[]) {
   def_priorite_switch(reseau, 2, 1025);
   printf("Switch racine : %u\n",get_switch_racine(reseau));
 
-  Connexion* aretetri = malloc(sizeof(Connexion) * reseau->nb_connexions);
-  trier_connexions(aretetri, reseau);
-  for (uint16_t i=0; i< reseau->nb_connexions; i++) {
-    afficher_connexion(aretetri[i]);
-  }
-
   deinit_reseau(reseau);
   free(reseau);
   reseau = NULL;
