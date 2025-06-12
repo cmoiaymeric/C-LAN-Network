@@ -24,7 +24,7 @@ typedef struct {
  *      au moins autant d'éléments que le nombre total de connexions dans le réseau.
  *
  * @param[in] g
- *      Pointeur constant vers la structure `reseau` représentant le réseau. 
+ *      Pointeur constant vers la structure `reseau ` représentant le réseau. 
  *      Le réseau contient les sommets et les connexions (arêtes) entre eux.
  *
  * @param[in] poids_arete
@@ -35,3 +35,5 @@ typedef struct {
  */
 void trier_connexions(Connexion *aretes_triees, Reseau* const g, uint8_t *poids_arete);
 void dijkstra_arbre_recouvrement(Reseau* reseau_original, machine_t racine, Reseau* reseau_arbre);
+
+#endif
