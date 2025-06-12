@@ -165,7 +165,7 @@ machine_t get_machine_par_mac(Reseau* reseau, Mac mac) {
             return m;
         }
     }
-    return NULL;
+    return 0;
 }
 
 machine_t degre_machine(Reseau *reseau, machine_t machine) {
@@ -195,47 +195,63 @@ void machines_connectees(Reseau *reseau, machine_t machine, machine_t* connectee
 }
 
 
-void transfert_trame(Reseau *reseau, Trame trame, machine_t transporteur, machine_t ancien) {
+void transfert_trame(Reseau *reseau, Trame trame, machine_t passerelle, machine_t ancien) {
     trame.TTL--;
     bool continuer = true;
     char* macString = malloc(18);
-    if (comparer_mac_machine(reseau->machines[transporteur], trame.addrDestination)) {  
-        printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[transporteur]),macString), trame.data);
+
+    // Affichage de la machine suivante dans la chaîne de transfert (décommenter pour afficher le test)
+    /*char* mac_str_passerelle = malloc(18);
+    mac_to_string(get_mac(reseau->machines[passerelle]), mac_str_passerelle);
+    printf("\n");
+    printf("adresse MAC passerelle (prochaine étape) : %s\n", mac_str_passerelle);
+    printf("\n");
+
+    free(mac_str_passerelle);
+    mac_str_passerelle = NULL;*/
+
+    if (comparer_mac_machine(reseau->machines[passerelle], trame.addrDestination)) {  
+        printf("%s : J'ai reçu un message ! '%s'\n", mac_to_string(get_mac(reseau->machines[passerelle]),macString), trame.data);
         continuer=false;
     }
     else if (trame.TTL <= 0) {
-        printf("%s : Le TTL de la trame est de 0, je détruit\n", mac_to_string(get_mac(reseau->machines[transporteur]), macString));
+        printf("%s : Le TTL de la trame est de 0, je détruit\n", mac_to_string(get_mac(reseau->machines[passerelle]), macString));
         continuer=false;
     }
     else {
-        printf("%s : Je fais passer une trame venant de %u\n",mac_to_string(get_mac(reseau->machines[transporteur]), macString), ancien);
+        printf("%s : Je fais passer une trame venant de %u\n",mac_to_string(get_mac(reseau->machines[passerelle]), macString), ancien);
         if (ancien != UINT16_MAX)
-            ajouter_commutation(&reseau->machines[transporteur], trame.addrSource, ancien);
+            ajouter_commutation(&reseau->machines[passerelle], trame.addrSource, ancien);
     }
     free(macString);
+    macString = NULL;
     if (!continuer) return;
 
-    uint16_t index_commutation = get_index_commutation(&reseau->machines[transporteur], trame.addrDestination);
+    uint16_t index_commutation = get_index_commutation(&reseau->machines[passerelle], trame.addrDestination);
     if (index_commutation != UINT16_MAX) {
-        transfert_trame(reseau, trame, index_commutation, transporteur);
+        transfert_trame(reseau, trame, index_commutation, passerelle);
     }
     else {
-        uint16_t deg = degre_machine(reseau, transporteur);
+        uint16_t deg = degre_machine(reseau, passerelle);
         machine_t connectees[deg];
-        machines_connectees(reseau, transporteur, connectees);
+        machines_connectees(reseau, passerelle, connectees);
         for (uint16_t i=0; i<deg; i++) {
             if (connectees[i] != ancien)
-                transfert_trame(reseau, trame, connectees[i], transporteur);
+                transfert_trame(reseau, trame, connectees[i], passerelle);
         }
     }
 }
 
 
 void envoyer_trame(Reseau *reseau, Trame trame) {
-    char* macString = malloc(18);
-    printf("%s : Envoi d'une trame vers %s\n",mac_to_string(trame.addrSource, macString), mac_to_string(trame.addrDestination, macString));
-    free(macString);
+    char* mac_string_src = malloc(18);
+    char* mac_string_dest = malloc(18);
+    printf("%s : Envoi d'une trame vers %s\n", mac_to_string(trame.addrSource, mac_string_src), mac_to_string(trame.addrDestination, mac_string_dest));
+    free(mac_string_src);
+    free(mac_string_dest);
+    mac_string_src = NULL;
+    mac_string_dest = NULL;
 
-    machine_t transporteur = get_machine_par_mac(reseau, trame.addrSource);
-    transfert_trame(reseau, trame, transporteur, UINT16_MAX);
+    machine_t passerelle = get_machine_par_mac(reseau, trame.addrSource);
+    transfert_trame(reseau, trame, passerelle, UINT16_MAX);
 }

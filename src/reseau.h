@@ -75,7 +75,7 @@ machine_t get_machine_par_mac(Reseau* reseau, Mac mac);
 machine_t degre_machine(Reseau* reseau, machine_t machine);
 void machines_connectees(Reseau* reseau, machine_t machine, machine_t* connectees); 
 
-void transfert_trame(Reseau* reseau, Trame trame, machine_t transporteur, machine_t ancien);
+void transfert_trame(Reseau* reseau, Trame trame, machine_t passerelle, machine_t ancien);
 void envoyer_trame(Reseau* reseau, Trame trame);
 
 #endif
