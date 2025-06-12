@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
   init_trame(&t2, &mac2, &mac1, 1, "blublubluuuu");
   envoyer_trame(reseau, t2);
 
-  afficher_table_commutation(&reseau->machines[2]);
+  afficher_table_commutation(&reseau->machines[0]);
 
 
   deinit_reseau(reseau);
