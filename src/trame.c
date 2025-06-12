@@ -115,19 +115,16 @@ void afficher_trame_hexa(Trame* trame){
 
         if (i < 5) strcat(str_adr_dest," ");
     }
-    printf("Adresse MAC source : %s\n", str_adr_src);
-    printf("Adresse MAC destination : %s\n", str_adr_dest);
     strcat(str_adr_macs, str_adr_src);
     strcat(str_adr_macs, " ");
     strcat(str_adr_macs, str_adr_dest);
-    printf("Adresses MAC : %s\n", str_adr_macs);
 
     free(str_adr_src);
     str_adr_src = NULL;
     free(str_adr_dest);
     str_adr_dest = NULL;
 
-    int macs_len = strlen(str_adr_macs);
+    int macs_len = strlen(str_adr_macs)-1;
 
     int data_len = strlen(trame->data);
     char* data_hexa = malloc(data_len * 2 + 1); // +1 pour le caractère nul de fin
@@ -148,10 +145,16 @@ void afficher_trame_hexa(Trame* trame){
         }
         hex_index_data += 2;
     }
-    printf("Données en hexadécimal : %s\n", data_hexa);
     strcat(trame_hexa, str_adr_macs); // Ajouter le caractère nul de fin
+    strcat(trame_hexa, " ");
     strcat(trame_hexa, data_hexa);
     printf("Trame en hexadécimal : %s\n", trame_hexa);
+
+    // Libération de la mémoire
+    free(str_adr_macs);
+    str_adr_macs = NULL;
+    free(trame_hexa);
+    trame_hexa = NULL;
     free(data_hexa);
     data_hexa = NULL;
 }
