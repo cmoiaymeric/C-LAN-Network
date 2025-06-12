@@ -50,17 +50,27 @@ void init_trame(Trame *trame, Mac* sourceMac, Mac* destMac, uint16_t type, char 
 void deinit_trame(Trame *trame)
 {
     trame->SFD = 0;
-    
-    free(trame->addrSource.octets);
-    for (int i = 0; i < 6; i++) {
+    trame->TTL = 0;
+
+    // Réinitialisation de l'adresse MAC source
+    for (uint8_t i = 0; i < 6; i++)
+    {
         trame->addrSource.octets[i] = 0;
     }
 
-    free(trame->addrDestination.octets);
-    for (int i = 0; i < 6; i++) {
+    // Réinitialisation de l'adresse MAC destination
+    for (uint8_t i = 0; i < 6; i++)
+    {
         trame->addrDestination.octets[i] = 0;
     }
 
     trame->type = 0;
+
+    // Réinitialisation des données
+    for (int i = 0; i < strlen(trame->data); i++)
+    {
+        trame->data[i] = 0;
+    }
+
     trame->FCS = 0;
 }
